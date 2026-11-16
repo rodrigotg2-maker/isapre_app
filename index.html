@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<title>Alcavia · Compara tu plan de Isapre</title>
+<link rel="icon" type="image/svg+xml" href="assets/logo/alcavia-favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Plus+Jakarta+Sans:ital,wght@0,500;0,600;0,700;0,800;1,500&amp;display=swap">
+<script src="assets/alcavia-datos.js"></script>
+<style>
+html,body{margin:0;padding:0;overflow:hidden;background:#F4E9DB;color:#2E3B38;font-family:Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+*{box-sizing:border-box}
+button,input{font:inherit;color:inherit}
+a{color:#0F5B57;text-underline-offset:3px}
+a:hover{color:#0B4744}
+:focus-visible{outline:3px solid #D9A441;outline-offset:2px;border-radius:10px}
+input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+input::placeholder{color:#7A8582}
+@keyframes alcPulse{0%{transform:translate(-50%,50%) scale(1);opacity:.75}100%{transform:translate(-50%,50%) scale(2.6);opacity:0}}
+@keyframes alcShine{0%{background-position:-160% 0}100%{background-position:260% 0}}
+::selection{background:#CFEAD9;color:#0F5B57}
+button{transition:background-color .2s ease,color .2s ease,border-color .2s ease,box-shadow .25s ease,transform .2s cubic-bezier(.2,.7,.2,1)}
+button:active:not(:disabled){transform:scale(.97)}
+@keyframes alcFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+@keyframes alcBeat{0%{box-shadow:0 0 0 0 rgba(15,91,87,.45)}100%{box-shadow:0 0 0 10px rgba(15,91,87,0)}}
+@media (prefers-reduced-motion:reduce){*{transition-duration:.01ms!important;animation:none!important;scroll-behavior:auto!important}}
+</style>
+</helmet>
+<div ref="{{ refBox }}" onScroll="{{ onScroll }}" style="position:fixed;inset:0;overflow:auto;background:#F4E9DB;display:flex;flex-direction:column">
+<header style="position:sticky;top:0;z-index:30;height:56px;flex:none;box-shadow:{{ hdrSh }};transition:box-shadow .3s ease;background:rgba(255,255,255,.96);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid #EADFCF;display:flex;align-items:center;gap:16px;padding:0 clamp(12px,3vw,24px)">
+  <button onClick="{{ goPortada }}" aria-label="Alcavia, ir a la portada" style="background:none;border:0;padding:0;cursor:pointer;display:flex;align-items:center;height:44px;flex:none;border-radius:10px"><img src="assets/logo/alcavia-logo-encabezado.svg" alt="Alcavia" style="height:26px;width:auto;display:block"></button>
+  <nav aria-label="Pasos" style="margin-left:auto;display:flex;gap:4px;overflow-x:auto;min-width:0">
+    <sc-for list="{{ steps }}" as="n" hint-placeholder-count="3"><button onClick="{{ n.onClick }}" aria-current="{{ n.cur }}" style="flex:none;height:38px;padding:0 12px 0 6px;border:0;border-radius:999px;display:flex;align-items:center;gap:8px;font-size:13px;font-weight:600;white-space:nowrap;cursor:pointer;background:{{ n.bg }};color:{{ n.fg }};opacity:{{ n.op }};transition:background-color .3s ease,color .3s ease,opacity .3s ease" style-hover="background:#F6F1E8"><span style="width:24px;height:24px;border-radius:999px;display:grid;place-items:center;font-size:11px;font-weight:700;background:{{ n.nb }};color:{{ n.nf }};transition:background-color .3s ease,color .3s ease">{{ n.n }}</span>{{ n.label }}</button></sc-for>
+  </nav>
+</header>
+<main style="flex:1 0 auto;display:flex;flex-direction:column;opacity:{{ mainO }};transform:{{ mainT }};transition:opacity .2s ease,transform .3s cubic-bezier(.2,.7,.2,1)">
+<sc-if value="{{ isPortada }}" hint-placeholder-val="{{ true }}">
+  <section data-screen-label="01 Portada" style="position:relative;overflow:hidden;background:#FFFFFF">
+    <div style="max-width:1200px;margin:0 auto;padding:clamp(32px,6vw,72px) clamp(16px,4vw,32px) clamp(110px,12vw,170px);display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:clamp(28px,4vw,56px);align-items:center">
+      <div style="display:flex;flex-direction:column;gap:20px;align-items:flex-start">
+        <p style="margin:0;font-size:13px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#0F5B57;opacity:{{ hero.o }};transform:{{ hero.t }};transition:opacity .7s ease 0.05s,transform .9s cubic-bezier(.2,.7,.2,1) 0.05s;">Comparador de planes de Isapre</p>
+        <h1 style="opacity:{{ hero.o }};transform:{{ hero.t }};transition:opacity .7s ease 0.12s,transform .9s cubic-bezier(.2,.7,.2,1) 0.12s;margin:0;font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:clamp(38px,5.4vw,64px);line-height:1.04;letter-spacing:-.025em;color:#0F5B57;text-wrap:balance">Mejores alternativas de salud para tu familia</h1>
+        <p style="opacity:{{ hero.o }};transform:{{ hero.t }};transition:opacity .7s ease 0.2s,transform .9s cubic-bezier(.2,.7,.2,1) 0.2s;margin:0;font-size:clamp(17px,1.6vw,20px);line-height:1.5;color:#46534F;max-width:36ch;text-wrap:pretty">Compara los planes de Isapre con el precio exacto para tu grupo familiar.</p>
+        <div style="display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-top:4px;opacity:{{ hero.o }};transform:{{ hero.t }};transition:opacity .7s ease 0.28s,transform .9s cubic-bezier(.2,.7,.2,1) 0.28s;">
+          <button onClick="{{ goGrupo }}" style="height:52px;padding:0 26px;border:0;border-radius:999px;background:#D9A441;color:#2E3B38;font-weight:700;font-size:17px;cursor:pointer;display:flex;align-items:center;gap:10px;box-shadow:0 6px 18px rgba(217,164,65,.35)" style-hover="background:#CF9934;transform:translateY(-2px);box-shadow:0 14px 28px -8px rgba(217,164,65,.6)">
+            Compara tu plan
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+          </button>
+          <button onClick="{{ goComo }}" style="height:52px;padding:0 18px;border:0;border-radius:999px;background:transparent;color:#0F5B57;font-weight:600;font-size:16px;cursor:pointer" style-hover="background:#CFEAD9">Cómo funciona</button>
+        </div>
+        <p style="margin:0;font-size:14px;color:#56625F;opacity:{{ hero.o }};transform:{{ hero.t }};transition:opacity .7s ease 0.36s,transform .9s cubic-bezier(.2,.7,.2,1) 0.36s;">1.959 planes de las 7 Isapres abiertas · Región Metropolitana</p>
+      </div>
+      <div style="position:relative;z-index:1;align-self:end;height:clamp(360px,44vw,580px);margin-bottom:calc(-1 * clamp(110px,12vw,170px))">
+        <div aria-hidden="true" style="position:absolute;left:50%;top:2%;width:min(84%,500px);aspect-ratio:1;transform:translate(-50%,{{ hero.sunY }})">
+          <div style="position:absolute;inset:0;border-radius:50%;background:#F7E8C9;opacity:{{ hero.o }};transform:{{ hero.sc }};transition:opacity 1s ease .05s,transform 1.4s cubic-bezier(.2,.7,.2,1) .05s"></div>
+          <div style="position:absolute;inset:-5%;border-radius:50%;border:2px solid #D9A441;border-bottom-color:transparent;border-left-color:transparent;opacity:{{ hero.ringO }};transform:{{ hero.ring }};transition:opacity 1s ease .4s,transform 1.6s cubic-bezier(.2,.7,.2,1) .3s"></div>
+        </div>
+        <div aria-hidden="true" style="position:absolute;left:-2%;bottom:30%;width:min(30%,170px);aspect-ratio:1;transform:translateY({{ hero.mintY }})">
+          <div style="width:100%;height:100%;border-radius:50%;background:#CFEAD9;opacity:{{ hero.o }};transform:{{ hero.sc }};transition:opacity 1s ease .2s,transform 1.4s cubic-bezier(.2,.7,.2,1) .2s"></div>
+        </div>
+        <div style="position:absolute;inset:0;transform:translateY({{ hero.famY }})">
+          <img src="assets/img/familia.png" alt="Familia de tres personas abrazada al aire libre" style="position:absolute;inset:0;width:100%;height:100%;object-fit:contain;object-position:center bottom;display:block;opacity:{{ hero.o }};transform:{{ hero.it }};transform-origin:50% 100%;transition:opacity .9s ease .18s,transform 1.2s cubic-bezier(.2,.7,.2,1) .18s">
+        </div>
+      </div>
+    </div>
+    <svg viewBox="0 0 1440 140" preserveAspectRatio="none" aria-hidden="true" style="position:absolute;z-index:2;pointer-events:none;left:0;right:0;bottom:0;width:100%;height:clamp(70px,9vw,140px);display:block">
+      <path d="M0 140 L0 92 C260 40 560 40 900 140 Z" fill="#CFEAD9"></path>
+      <path d="M640 140 C960 78 1220 58 1440 66 L1440 140 Z" fill="#D9A441"></path>
+      <path d="M0 140 L0 120 C420 76 920 150 1440 104 L1440 140 Z" fill="#7FA98D"></path>
+      <path d="M0 140 L0 132 C460 104 960 152 1440 124 L1440 140 Z" fill="#F4E9DB"></path>
+    </svg>
+  </section>
+
+  <section aria-label="Por qué confiar" style="max-width:1200px;width:100%;margin:0 auto;padding:8px clamp(16px,4vw,32px) 0">
+    <div data-rv="p-tb" style="opacity:{{ rvP.tb.o }};transform:{{ rvP.tb.t }};transition:opacity .7s ease,transform .9s cubic-bezier(.2,.7,.2,1);background:#FFFFFF;border-radius:20px;padding:16px 20px;display:flex;flex-wrap:wrap;justify-content:center;gap:12px 32px;box-shadow:0 1px 2px rgba(46,59,56,.06),0 8px 24px rgba(46,59,56,.06)">
+      <div style="display:flex;align-items:center;gap:10px;min-height:44px">
+        <span style="width:36px;height:36px;border-radius:999px;background:#CFEAD9;color:#0F5B57;display:grid;place-items:center;flex:none"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><ellipse cx="12" cy="5" rx="9" ry="3"></ellipse><path d="M3 5V19A9 3 0 0 0 21 19V5"></path><path d="M3 12A9 3 0 0 0 21 12"></path></svg></span>
+        <span style="font-size:15px;font-weight:600">Datos oficiales de la Superintendencia de Salud</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:10px;min-height:44px">
+        <span style="width:36px;height:36px;border-radius:999px;background:#CFEAD9;color:#0F5B57;display:grid;place-items:center;flex:none"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 2v4"></path><path d="M16 2v4"></path><rect width="18" height="18" x="3" y="4" rx="2"></rect><path d="M3 10h18"></path></svg></span>
+        <span style="font-size:15px;font-weight:600">Actualizado: septiembre 2026</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:10px;min-height:44px">
+        <span style="width:36px;height:36px;border-radius:999px;background:#CFEAD9;color:#0F5B57;display:grid;place-items:center;flex:none"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"></path><path d="m9 12 2 2 4-4"></path></svg></span>
+        <span style="font-size:15px;font-weight:600">Sin planes patrocinados</span>
+      </div>
+    </div>
+  </section>
+
+  <section id="como-funciona" aria-labelledby="como-h" style="max-width:1200px;width:100%;margin:0 auto;padding:clamp(48px,7vw,88px) clamp(16px,4vw,32px);display:flex;flex-direction:column;gap:28px">
+    <div data-rv="p-h" style="display:flex;flex-direction:column;gap:8px;opacity:{{ rvP.h.o }};transform:{{ rvP.h.t }};transition:opacity .7s ease,transform .9s cubic-bezier(.2,.7,.2,1)">
+      <p style="margin:0;font-size:13px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#0F5B57">Cómo funciona</p>
+      <h2 id="como-h" style="margin:0;font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:clamp(28px,3.4vw,40px);line-height:1.12;letter-spacing:-.02em;color:#2E3B38;text-wrap:balance">Tres pasos para ver tus alternativas</h2>
+    </div>
+    <ol style="list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:16px">
+      <li data-rv="p-c1" style="display:flex;opacity:{{ rvP.c1.o }};transform:{{ rvP.c1.t }};transition:opacity .7s ease 0s,transform .9s cubic-bezier(.2,.7,.2,1) 0s"><div style="flex:1;background:#FFFFFF;border-radius:20px;padding:24px;display:flex;flex-direction:column;gap:12px;box-shadow:0 1px 2px rgba(46,59,56,.06),0 8px 24px rgba(46,59,56,.06);transition:transform .35s cubic-bezier(.2,.7,.2,1),box-shadow .35s ease" style-hover="transform:translateY(-4px);box-shadow:0 2px 4px rgba(46,59,56,.06),0 22px 40px -14px rgba(46,59,56,.22)">
+        <span style="width:44px;height:44px;border-radius:999px;background:#0F5B57;color:#FFFFFF;display:grid;place-items:center;font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:18px">1</span>
+        <h3 style="margin:0;font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:20px;color:#0F5B57">Arma tu grupo</h3>
+        <p style="margin:0;font-size:16px;line-height:1.55;color:#46534F;text-wrap:pretty">Indica la edad y el sexo de quienes van en el plan. Toma unos 20 segundos y queda guardado solo en tu navegador.</p>
+      </div></li>
+      <li data-rv="p-c2" style="display:flex;opacity:{{ rvP.c2.o }};transform:{{ rvP.c2.t }};transition:opacity .7s ease 0.1s,transform .9s cubic-bezier(.2,.7,.2,1) 0.1s"><div style="flex:1;background:#FFFFFF;border-radius:20px;padding:24px;display:flex;flex-direction:column;gap:12px;box-shadow:0 1px 2px rgba(46,59,56,.06),0 8px 24px rgba(46,59,56,.06);transition:transform .35s cubic-bezier(.2,.7,.2,1),box-shadow .35s ease" style-hover="transform:translateY(-4px);box-shadow:0 2px 4px rgba(46,59,56,.06),0 22px 40px -14px rgba(46,59,56,.22)">
+        <span style="width:44px;height:44px;border-radius:999px;background:#0F5B57;color:#FFFFFF;display:grid;place-items:center;font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:18px">2</span>
+        <h3 style="margin:0;font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:20px;color:#0F5B57">Ajusta lo que te importa</h3>
+        <p style="margin:0;font-size:16px;line-height:1.55;color:#46534F;text-wrap:pretty">Da más peso al precio, a la cobertura hospitalaria, a la ambulatoria o al tope anual. Filtra por Isapre, modalidad o presupuesto.</p>
+      </div></li>
+      <li data-rv="p-c3" style="display:flex;opacity:{{ rvP.c3.o }};transform:{{ rvP.c3.t }};transition:opacity .7s ease 0.2s,transform .9s cubic-bezier(.2,.7,.2,1) 0.2s"><div style="flex:1;background:#FFFFFF;border-radius:20px;padding:24px;display:flex;flex-direction:column;gap:12px;box-shadow:0 1px 2px rgba(46,59,56,.06),0 8px 24px rgba(46,59,56,.06);transition:transform .35s cubic-bezier(.2,.7,.2,1),box-shadow .35s ease" style-hover="transform:translateY(-4px);box-shadow:0 2px 4px rgba(46,59,56,.06),0 22px 40px -14px rgba(46,59,56,.22)">
+        <span style="width:44px;height:44px;border-radius:999px;background:#0F5B57;color:#FFFFFF;display:grid;place-items:center;font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:18px">3</span>
+        <h3 style="margin:0;font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:20px;color:#0F5B57">Compara y decide</h3>
+        <p style="margin:0;font-size:16px;line-height:1.55;color:#46534F;text-wrap:pretty">Pon hasta 3 planes lado a lado, revisa cómo se calcula cada precio y entra a la ficha del plan en el sitio de su Isapre.</p>
+      </div></li>
+    </ol>
+    <div>
+      <button onClick="{{ goGrupo }}" style="height:52px;padding:0 26px;border:0;border-radius:999px;background:#D9A441;color:#2E3B38;font-weight:700;font-size:17px;cursor:pointer;display:inline-flex;align-items:center;gap:10px;box-shadow:0 6px 18px rgba(217,164,65,.3)" style-hover="background:#CF9934;transform:translateY(-2px);box-shadow:0 14px 28px -8px rgba(217,164,65,.6)">
+        Compara tu plan
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+      </button>
+    </div>
+  </section>
+</sc-if>
+<sc-if value="{{ isGrupo }}" hint-placeholder-val="{{ false }}">
+  <section data-screen-label="02 Tu grupo" style="max-width:1040px;width:100%;margin:0 auto;padding:clamp(28px,5vw,48px) clamp(16px,4vw,32px) 32px;display:flex;flex-direction:column;gap:20px;opacity:{{ gr.en.o }};transform:{{ gr.en.t }};transition:opacity .6s ease,transform .8s cubic-bezier(.2,.7,.2,1)">
+    <div style="display:flex;flex-direction:column;gap:6px">
+      <span style="font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#8A6417">Paso 1 · Tu grupo</span>
+      <h1 style="margin:0;font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:clamp(28px,4vw,40px);line-height:1.12;letter-spacing:-.02em;color:#0F5B57;text-wrap:balance">¿Quiénes van en tu plan?</h1>
+      <p style="margin:0;font-size:16px;line-height:1.5;color:#46534F;text-wrap:pretty">Indica la edad y el sexo de cada persona. El factor de riesgo define el precio para tu grupo. Se guarda solo en tu navegador.</p>
+    </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:12px">
+        <sc-for list="{{ gr.per }}" as="p" hint-placeholder-count="3">
+          <div style="background:#FFFFFF;border-radius:20px;padding:14px;display:flex;flex-direction:column;gap:12px;box-shadow:0 1px 2px rgba(46,59,56,.05),0 10px 26px -16px rgba(46,59,56,.25);border-top:4px solid {{ p.color }}">
+            <div style="display:flex;align-items:flex-start;gap:8px">
+              <span style="display:flex;flex-direction:column;min-width:0;flex:1"><strong style="font-size:15px">{{ p.title }}</strong><span style="font-size:12px;color:#56625F">{{ p.tipoTxt }} · factor <strong style="color:#0F5B57">{{ p.fTxt }}</strong></span></span>
+              <sc-if value="{{ p.removable }}" hint-placeholder-val="{{ false }}"><button onClick="{{ p.onRemove }}" aria-label="Quitar" style="width:36px;height:36px;margin:-6px -6px 0 0;border:0;border-radius:999px;background:transparent;color:#56625F;cursor:pointer" style-hover="background:#F7E4DE">✕</button></sc-if>
+            </div>
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:6px">
+              <button onClick="{{ p.onMinus }}" aria-label="Restar un año" style="width:44px;height:44px;border:1px solid #DCCFBC;border-radius:999px;background:#FFFFFF;cursor:pointer;font-size:18px">−</button>
+              <span style="display:flex;align-items:baseline;gap:4px"><input type="number" value="{{ p.edad }}" onChange="{{ p.onEdad }}" aria-label="Edad" style="width:60px;border:0;text-align:center;font-family:'Plus Jakarta Sans',sans-serif;font-size:32px;font-weight:800;font-variant-numeric:tabular-nums;outline:none;background:transparent"><span style="font-size:13px;color:#56625F">años</span></span>
+              <button onClick="{{ p.onPlus }}" aria-label="Sumar un año" style="width:44px;height:44px;border:1px solid #DCCFBC;border-radius:999px;background:#FFFFFF;cursor:pointer;font-size:18px">+</button>
+            </div>
+            <span style="display:flex;background:#F4E9DB;border-radius:999px;padding:3px;gap:3px">
+              <button onClick="{{ p.onH }}" aria-pressed="{{ p.isH }}" style="flex:1;height:38px;border:0;border-radius:999px;font-size:14px;font-weight:600;cursor:pointer;background:{{ p.hBg }};color:{{ p.hFg }}">Hombre</button>
+              <button onClick="{{ p.onM }}" aria-pressed="{{ p.isM }}" style="flex:1;height:38px;border:0;border-radius:999px;font-size:14px;font-weight:600;cursor:pointer;background:{{ p.mBg }};color:{{ p.mFg }}">Mujer</button>
+            </span>
+            <sc-if value="{{ p.isCony }}" hint-placeholder-val="{{ false }}"><span style="display:flex;background:#F4E9DB;border-radius:999px;padding:3px;gap:3px">
+              <button onClick="{{ p.onCarga }}" aria-pressed="{{ p.isCarga }}" style="flex:1;height:38px;border:0;border-radius:999px;font-size:13px;font-weight:600;cursor:pointer;background:{{ p.cBg }};color:{{ p.cFg }}">Carga</button>
+              <button onClick="{{ p.onCot }}" aria-pressed="{{ p.isCot }}" style="flex:1;height:38px;border:0;border-radius:999px;font-size:13px;font-weight:600;cursor:pointer;background:{{ p.tBg }};color:{{ p.tFg }}">Cotizante</button>
+            </span></sc-if>
+          </div>
+        </sc-for>
+        <div style="border:2px dashed #B9CDBF;border-radius:20px;padding:14px;display:flex;flex-direction:column;gap:8px;justify-content:center;min-height:180px">
+          <span style="font-size:14px;font-weight:600;color:#0F5B57">Agregar</span>
+          <sc-if value="{{ gr.noCony }}" hint-placeholder-val="{{ false }}"><button onClick="{{ gr.addCony }}" style="height:44px;border:0;border-radius:999px;background:#FFFFFF;color:#0F5B57;font-weight:600;cursor:pointer">+ Cónyuge o pareja</button></sc-if>
+          <button onClick="{{ gr.addCarga }}" style="height:44px;border:0;border-radius:999px;background:#FFFFFF;color:#0F5B57;font-weight:600;cursor:pointer">+ Hijo/a u otra carga</button>
+        </div>
+      </div>
+      <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;background:#FFFFFF;border-radius:16px;padding:12px 16px">
+        <span style="font-size:14px;font-weight:600">Atajos</span>
+        <sc-for list="{{ gr.presets }}" as="o" hint-placeholder-count="4"><button onClick="{{ o.onClick }}" aria-pressed="{{ o.pressed }}" style="height:36px;padding:0 12px;border-radius:999px;font-size:13px;font-weight:600;cursor:pointer;border:1.5px solid {{ o.bd }};background:{{ o.bg }};color:{{ o.fg }}">{{ o.label }}</button></sc-for>
+        <label style="margin-left:auto;display:flex;align-items:center;gap:8px;font-size:14px">Hoy pago <span style="display:flex;align-items:center;gap:4px;height:40px;padding:0 10px;border:1.5px solid #DCCFBC;border-radius:12px"><input value="{{ gr.hoy }}" onChange="{{ gr.onHoy }}" placeholder="5,7" inputmode="decimal" style="width:44px;border:0;text-align:right;font-weight:700;outline:none;background:transparent"><span style="color:#56625F">UF</span></span></label>
+      </div>
+  </section>
+  <div style="position:sticky;bottom:0;z-index:20;background:rgba(255,255,255,.96);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-top:1px solid #EADFCF">
+    <div style="max-width:1040px;margin:0 auto;padding:12px clamp(16px,4vw,32px);display:flex;align-items:center;gap:16px;flex-wrap:wrap">
+      <span style="display:flex;flex-direction:column;gap:2px;margin-right:auto"><span style="font-size:14px;color:#56625F">Tu grupo de {{ gr.nMem }}</span><strong style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:20px;font-variant-numeric:tabular-nums">desde {{ gr.desdeF }} UF/mes</strong></span>
+      <button onClick="{{ gr.goAlt }}" style="height:52px;padding:0 24px;border:0;border-radius:999px;background:#0F5B57;color:#FFFFFF;font-weight:700;font-size:16px;cursor:pointer;white-space:nowrap;transition:background-color .2s ease,transform .2s ease" style-hover="background:#0B4744;transform:translateY(-1px)">Ver {{ gr.nFilt }} alternativas →</button>
+    </div>
+  </div>
+</sc-if>
+<sc-if value="{{ isAlt }}" hint-placeholder-val="{{ false }}"><div data-screen-label="03 Alternativas">
+  <div style="padding:22px 28px 0;max-width:1520px;margin:0 auto;display:grid;grid-template-columns:{{ al.gridCols }};gap:20px;align-items:start">
+    <div style="display:flex;flex-direction:column;min-width:0">
+      <div style="display:flex;flex-direction:column;gap:6px;opacity:{{ al.en.o }};transform:{{ al.en.t }};transition:opacity .6s ease,transform .8s cubic-bezier(.2,.7,.2,1)"><span style="font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#8A6417">Paso 2 · Alternativas</span><h1 style="margin:0;font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:clamp(24px,2.8vw,30px);color:#2E3B38;text-wrap:balance">{{ al.nFilt }} planes para tu grupo de {{ al.nMem }}, desde <span style="color:#0F5B57">{{ al.desdeF }} UF/mes</span></h1></div>
+
+      <div style="position:sticky;top:56px;z-index:12;background:#F4E9DB;padding-top:{{ al.k.pt }};display:flex;flex-direction:column;gap:{{ al.k.gap }};box-shadow:{{ al.stkSh }};transition:box-shadow .3s ease,padding .3s ease">
+        <div style="background:#FFFFFF;border-radius:20px;box-shadow:0 10px 26px -18px rgba(46,59,56,.3);padding:{{ al.k.p1 }};display:flex;flex-direction:column;transition:padding .3s ease">
+          <div style="display:flex;flex-wrap:{{ al.k.wrap }};align-items:center;gap:8px 16px">
+            <div style="display:flex;flex-wrap:{{ al.k.wrap }};align-items:center;gap:6px;min-width:0">
+              <span style="font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:#56625F;margin-right:2px;display:{{ al.k.inl }}">Tu grupo</span>
+              <span title="{{ al.grupoLargo }}" style="display:{{ al.k.cmpF }};height:30px;padding:0 11px;border-radius:999px;background:#F4E9DB;font-size:13px;font-weight:700;align-items:center;white-space:nowrap;font-variant-numeric:tabular-nums">{{ al.grupoCorto }}</span>
+              <sc-for list="{{ al.chips }}" as="c" hint-placeholder-count="3"><span style="height:{{ al.k.ch }};padding:0 11px;border-radius:999px;background:#F4E9DB;font-size:13px;font-weight:600;display:{{ al.k.fullF }};align-items:center;white-space:nowrap;transition:height .3s ease">{{ c }}</span></sc-for>
+              <button onClick="{{ al.openGrp }}" style="height:{{ al.k.ch }};padding:0 10px;border:0;border-radius:999px;background:transparent;color:#0F5B57;font-size:13px;font-weight:700;cursor:pointer;white-space:nowrap;transition:background-color .2s ease" style-hover="background:#EEF7F1" title="Editar grupo">✎<span style="display:{{ al.k.inl }}"> Editar grupo</span></button>
+            </div>
+            <div style="margin-left:auto;display:flex;align-items:center;gap:10px;flex:none">
+              <span style="font-size:13px;font-weight:700;white-space:nowrap;display:{{ al.k.inl }}">¿Qué te importa más?</span>
+              <div role="radiogroup" aria-label="Prioridad" style="position:relative;display:flex;gap:4px;padding:4px;border-radius:999px;background:#F4E9DB;flex:none"><span style="position:absolute;top:4px;bottom:4px;width:{{ al.k.pw }};border-radius:999px;background:#0F5B57;box-shadow:0 6px 14px -8px rgba(15,91,87,.7);left:{{ al.k.pl }};transition:left .4s cubic-bezier(.2,.7,.2,1),width .3s ease"></span><sc-for list="{{ al.pris }}" as="r" hint-placeholder-count="3"><button role="radio" aria-checked="{{ r.on }}" onClick="{{ r.onClick }}" style="position:relative;z-index:1;flex:none;width:{{ al.k.pw }};height:{{ al.k.ph }};border:0;border-radius:999px;background:transparent;font-weight:700;font-size:14px;cursor:pointer;white-space:nowrap;color:{{ r.fg }};transition:color .3s ease,height .3s ease,width .3s ease">{{ r.label }}</button></sc-for></div>
+            </div>
+          </div>
+          <div style="max-height:{{ al.k.wmh }};opacity:{{ al.k.wo }};overflow:hidden;transition:max-height .3s ease,opacity .25s ease"><div style="display:flex;flex-wrap:wrap;align-items:center;gap:6px 16px;font-size:12px;color:#46534F;padding-top:10px"><span style="flex:1 1 100%">Ordenamos con el puntaje Alcavia, igual que en Comparar.</span><sc-for list="{{ al.wchips }}" as="k" hint-placeholder-count="4"><span style="display:flex;align-items:center;gap:6px;white-space:nowrap"><span style="width:12px;height:12px;border-radius:4px;background:{{ k.c }}"></span>{{ k.l }}</span></sc-for></div></div>
+        </div>
+
+        <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding-bottom:{{ al.k.pb }};transition:padding .3s ease">
+          <div style="position:relative;flex:none"><button onClick="{{ al.tIsa }}" style="height:{{ al.k.fh }};padding:0 14px;border:1.5px solid #DCCFBC;border-radius:999px;font-weight:600;font-size:14px;cursor:pointer;white-space:nowrap;background:{{ al.fIsaBg }};color:{{ al.fIsaFg }};transition:background-color .2s ease,height .3s ease">{{ al.fIsaTxt }} ▾</button><sc-if value="{{ al.popIsa }}" hint-placeholder-val="{{ false }}"><div style="position:absolute;top:calc(100% + 6px);left:0;width:260px;background:#FFFFFF;border-radius:16px;padding:10px;box-shadow:0 20px 40px -12px rgba(46,59,56,.4);display:flex;flex-direction:column;gap:2px;z-index:30"><sc-for list="{{ al.isaList }}" as="i" hint-placeholder-count="7"><button onClick="{{ i.onClick }}" aria-pressed="{{ i.on }}" style="height:40px;padding:0 8px;border:0;border-radius:10px;background:transparent;cursor:pointer;display:flex;align-items:center;gap:10px;font-size:14px;text-align:left;transition:background-color .15s ease" style-hover="background:#FBF8F3"><span style="width:20px;height:20px;border-radius:6px;flex:none;border:2px solid {{ i.bd }};background:{{ i.box }};color:#FFFFFF;font-size:12px;display:grid;place-items:center;transition:background-color .2s ease">✓</span>{{ i.label }}<span style="margin-left:auto;color:#56625F;font-variant-numeric:tabular-nums">{{ i.count }}</span></button></sc-for></div></sc-if></div>
+          <div style="position:relative;flex:none"><button onClick="{{ al.tCob }}" style="height:{{ al.k.fh }};padding:0 14px;border:1.5px solid #DCCFBC;border-radius:999px;font-weight:600;font-size:14px;cursor:pointer;white-space:nowrap;background:{{ al.fCobBg }};color:{{ al.fCobFg }};transition:background-color .2s ease,height .3s ease">{{ al.fCobTxt }} ▾</button><sc-if value="{{ al.popCob }}" hint-placeholder-val="{{ false }}"><div style="position:absolute;top:calc(100% + 6px);left:0;width:300px;background:#FFFFFF;border-radius:16px;padding:10px;box-shadow:0 20px 40px -12px rgba(46,59,56,.4);display:flex;flex-direction:column;gap:6px;z-index:30"><span style="font-size:13px;font-weight:600">Hospitalaria mínima</span><span style="display:flex;flex-wrap:wrap;gap:6px"><sc-for list="{{ al.hminOpts }}" as="o" hint-placeholder-count="4"><button onClick="{{ o.onClick }}" aria-pressed="{{ o.on }}" style="height:38px;padding:0 14px;border-radius:999px;font-size:13px;font-weight:600;cursor:pointer;white-space:nowrap;border:1.5px solid {{ o.bd }};background:{{ o.bg }};color:{{ o.fg }};transition:background-color .2s ease,color .2s ease,transform .15s ease" style-active="transform:scale(.96)">{{ o.label }}</button></sc-for></span></div></sc-if></div>
+          <div style="position:relative;flex:none"><button onClick="{{ al.tPres }}" style="height:{{ al.k.fh }};padding:0 14px;border:1.5px solid #DCCFBC;border-radius:999px;font-weight:600;font-size:14px;cursor:pointer;white-space:nowrap;background:{{ al.fPresBg }};color:{{ al.fPresFg }};transition:background-color .2s ease,height .3s ease">{{ al.fPresTxt }} ▾</button><sc-if value="{{ al.popPres }}" hint-placeholder-val="{{ false }}"><div style="position:absolute;top:calc(100% + 6px);left:0;width:320px;background:#FFFFFF;border-radius:16px;padding:10px;box-shadow:0 20px 40px -12px rgba(46,59,56,.4);display:flex;flex-direction:column;gap:6px;z-index:30"><span style="font-size:13px;font-weight:600">Total al mes para tu grupo</span><span style="display:flex;flex-wrap:wrap;gap:6px"><sc-for list="{{ al.presOpts }}" as="o" hint-placeholder-count="4"><button onClick="{{ o.onClick }}" aria-pressed="{{ o.on }}" style="height:38px;padding:0 14px;border-radius:999px;font-size:13px;font-weight:600;cursor:pointer;white-space:nowrap;border:1.5px solid {{ o.bd }};background:{{ o.bg }};color:{{ o.fg }};transition:background-color .2s ease,color .2s ease,transform .15s ease" style-active="transform:scale(.96)">{{ o.label }}</button></sc-for></span></div></sc-if></div>
+          <sc-if value="{{ al.hasF }}" hint-placeholder-val="{{ false }}"><button onClick="{{ al.limpiar }}" style="height:36px;padding:0 8px;border:0;background:transparent;font-weight:600;font-size:14px;cursor:pointer;text-decoration:underline;white-space:nowrap">Limpiar ({{ al.nF }})</button></sc-if>
+          <span style="font-size:13px;color:#46534F;white-space:nowrap;opacity:{{ al.cntO }};transition:opacity .3s ease;padding-left:6px"><strong style="color:#0F5B57;font-variant-numeric:tabular-nums">{{ al.nFilt }} planes</strong> · desde {{ al.desdeF }} UF</span>
+          <span style="margin-left:auto;display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+            <span role="group" aria-label="Vista" style="display:flex;align-items:center;gap:3px;padding:3px;border-radius:999px;background:#FFFFFF;flex:none"><sc-for list="{{ al.views }}" as="v" hint-placeholder-count="2"><button onClick="{{ v.onClick }}" aria-pressed="{{ v.on }}" title="{{ v.label }}" style="height:{{ al.k.sh }};padding:0 12px;border:0;border-radius:999px;display:flex;align-items:center;gap:6px;font-size:13px;font-weight:700;cursor:pointer;white-space:nowrap;background:{{ v.bg }};color:{{ v.fg }};transition:background-color .2s ease,color .2s ease,height .3s ease"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="{{ v.ico }}"></path></svg>{{ v.label }}</button></sc-for></span>
+            <span style="display:flex;align-items:center;gap:6px;font-size:13px;color:#56625F;flex:none">Ordenar<span style="display:flex;background:#FFFFFF;border-radius:999px;padding:3px;gap:3px"><sc-for list="{{ al.orden }}" as="o" hint-placeholder-count="2"><button onClick="{{ o.onClick }}" aria-pressed="{{ o.on }}" style="height:{{ al.k.sh }};padding:0 12px;border:0;border-radius:999px;font-size:13px;font-weight:600;cursor:pointer;white-space:nowrap;background:{{ o.bg }};color:{{ o.fg }};transition:background-color .2s ease,height .3s ease">{{ o.label }}</button></sc-for></span></span>
+          </span>
+        </div>
+        <sc-if value="{{ al.isTabla }}" hint-placeholder-val="{{ true }}"><div style="display:grid;width:100%;grid-template-columns:{{ al.gcols }};gap:12px;align-items:center;padding:0 16px;height:40px;background:#FFFFFF;border-radius:20px 20px 0 0;border-bottom:1px solid #EADFCF;font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:#46534F"><span>#</span><span>Plan · {{ al.nFilt }}</span><span>Puntaje Alcavia</span><span style="display:{{ al.covD }}">Cobertura</span><span style="text-align:right">Total grupo</span><span></span></div></sc-if>
+      </div>
+
+      <sc-if value="{{ al.isTabla }}" hint-placeholder-val="{{ true }}"><div style="background:#FFFFFF;border-radius:0 0 20px 20px;box-shadow:0 10px 26px -18px rgba(46,59,56,.3);overflow:hidden"><div style="position:relative;height:{{ al.list1H }};transition:height .4s ease">
+        <sc-for list="{{ al.list1 }}" as="p" hint-placeholder-count="8"><div onMouseEnter="{{ p.enter }}" onMouseLeave="{{ p.leave }}" style="position:absolute;left:0;right:0;top:{{ p.top }};height:88px;display:grid;grid-template-columns:{{ al.gcols }};gap:12px;align-items:center;padding:0 16px;border-top:1px solid #F0E8DC;background:{{ p.rowBg }};opacity:{{ p.o }};pointer-events:{{ p.pe }};transition:top .6s cubic-bezier(.2,.7,.2,1),opacity .4s ease {{ p.d }},background-color .2s ease">
+          <span style="display:inline-flex;align-items:center;justify-content:center;flex:none;min-width:34px;height:34px;padding:0 8px;border-radius:999px;font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:13px;color:#2E3B38;background:{{ p.mBg }};transition:background-color .4s ease">{{ p.pos }}</span>
+          <span style="display:flex;flex-direction:column;gap:3px;min-width:0"><span style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;font-size:12px;font-weight:600;color:#0F5B57"><span style="white-space:nowrap">{{ p.isapre }} · {{ p.modalidad }}</span><sc-if value="{{ p.badge }}" hint-placeholder-val="{{ false }}"><span style="padding:2px 8px;border-radius:999px;background:#D9A441;color:#2E3B38;font-size:11px;font-weight:800;white-space:nowrap">Recomendado</span></sc-if><sc-if value="{{ p.cheap }}" hint-placeholder-val="{{ false }}"><span style="padding:2px 8px;border-radius:999px;background:#CFEAD9;color:#0F5B57;font-size:11px;font-weight:800;white-space:nowrap">Más barato</span></sc-if></span><button onClick="{{ p.onDet }}" title="Ver detalle de {{ p.nombre }}" style="padding:0;border:0;background:transparent;text-align:left;cursor:pointer;color:inherit;font-weight:700;font-family:'Plus Jakarta Sans',sans-serif;font-size:15px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;line-height:1.25;overflow-wrap:anywhere;text-underline-offset:3px" style-hover="color:#0F5B57;text-decoration:underline">{{ p.nombre }}</button></span>
+          <span style="display:flex;flex-direction:column;gap:6px"><span style="display:flex;align-items:baseline;gap:3px"><strong style="font-family:'Plus Jakarta Sans',sans-serif;font-size:18px;font-variant-numeric:tabular-nums">{{ p.sc }}</strong><span style="font-size:12px;color:#56625F">/ 100</span></span><span style="display:flex;height:8px;gap:2px;border-radius:999px;background:#F0E8DC;overflow:hidden;width:100%"><sc-for list="{{ p.comp }}" as="k" hint-placeholder-count="4"><span style="display:block;height:100%;width:{{ k.w }};background:{{ k.c }};transition:width .8s cubic-bezier(.2,.7,.2,1)"></span></sc-for></span></span>
+          <span style="display:{{ al.covF }};flex-direction:column;gap:4px;font-size:12px"><span style="display:grid;grid-template-columns:34px minmax(0,1fr) 34px;gap:6px;align-items:center"><span style="color:#56625F">Hosp.</span><span style="height:5px;border-radius:999px;background:#F0E8DC;overflow:hidden"><span style="display:block;height:100%;background:#0F5B57;width:{{ p.hospW }};transition:width .8s ease"></span></span><strong style="text-align:right">{{ p.hospTxt }}</strong></span><span style="display:grid;grid-template-columns:34px minmax(0,1fr) 34px;gap:6px;align-items:center"><span style="color:#56625F">Amb.</span><span style="height:5px;border-radius:999px;background:#F0E8DC;overflow:hidden"><span style="display:block;height:100%;background:#7FA98D;width:{{ p.ambW }};transition:width .8s ease"></span></span><strong style="text-align:right">{{ p.ambTxt }}</strong></span><span style="color:#56625F;white-space:nowrap">Tope <strong style="color:#2E3B38">{{ p.topeTxt }}</strong></span></span>
+          <span style="display:flex;flex-direction:column;align-items:flex-end;gap:2px"><strong style="font-family:'Plus Jakarta Sans',sans-serif;font-size:17px;font-variant-numeric:tabular-nums;white-space:nowrap">{{ p.ufTxt }} UF</strong><span style="font-size:12px;color:#56625F;white-space:nowrap">{{ p.clpTxt }}</span></span>
+          <span style="display:flex;justify-content:flex-end"><button onClick="{{ p.onSel }}" aria-pressed="{{ p.inSel }}" style="height:38px;padding:0 12px;border-radius:999px;border:1.5px solid {{ p.selBd }};background:{{ p.selBg }};color:{{ p.selFg }};font-weight:700;font-size:13px;cursor:pointer;white-space:nowrap;opacity:{{ p.selOp }};transition:background-color .2s ease,color .2s ease,border-color .2s ease,transform .15s ease" style-active="transform:scale(.95)">{{ p.selBtn }}</button></span>
+        </div></sc-for>
+      </div></div></sc-if>
+
+      <sc-if value="{{ al.isCards }}" hint-placeholder-val="{{ false }}"><div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:14px;padding-top:4px"><sc-for list="{{ al.grid }}" as="p" hint-placeholder-count="6"><div onMouseEnter="{{ p.enter }}" onMouseLeave="{{ p.leave }}" style="display:flex;flex-direction:column;gap:12px;min-width:0;padding:18px;border-radius:24px 24px 36px 24px;background:{{ p.cBg }};color:{{ p.cFg }};box-shadow:{{ p.cSh }};outline:2px solid {{ p.cOut }};outline-offset:-2px;opacity:{{ p.o }};transform:{{ p.t }};transition:opacity .5s ease {{ p.d }},transform .7s cubic-bezier(.2,.7,.2,1) {{ p.d }},box-shadow .25s ease" style-hover="box-shadow:0 26px 44px -24px rgba(46,59,56,.55)">
+        <span style="display:flex;align-items:center;gap:10px;min-width:0"><span style="display:inline-flex;align-items:center;justify-content:center;flex:none;min-width:34px;height:34px;padding:0 8px;border-radius:999px;font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:13px;color:#2E3B38;background:{{ p.mBg }}">{{ p.pos }}</span><span style="font-size:12px;font-weight:600;color:{{ p.cSub }};white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0">{{ p.isapre }} · {{ p.modalidad }}</span><button onClick="{{ p.onSel }}" aria-label="Agregar a comparar" aria-pressed="{{ p.inSel }}" title="{{ p.selTxt }}" style="margin-left:auto;flex:none;width:38px;height:38px;border-radius:999px;border:1.5px solid {{ p.selBd }};background:{{ p.selBg }};color:{{ p.selFg }};font-weight:800;font-size:16px;cursor:pointer;opacity:{{ p.selOp }};transition:background-color .2s ease,transform .15s ease" style-active="transform:scale(.9)">{{ p.selIco }}</button></span>
+        <strong title="{{ p.nombre }}" style="font-family:'Plus Jakarta Sans',sans-serif;font-size:16px;min-height:40px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;line-height:1.25;overflow-wrap:anywhere">{{ p.nombre }}</strong>
+        <span style="display:flex;align-items:center;gap:14px"><span style="display:grid;place-items:center;flex:none"><svg width="64" height="64" viewBox="0 0 60 60" aria-hidden="true" style="grid-area:1/1"><circle cx="30" cy="30" r="26" fill="none" stroke="{{ p.trk }}" stroke-width="5"></circle><circle cx="30" cy="30" r="26" fill="none" stroke="{{ p.rS }}" stroke-width="5" stroke-linecap="round" stroke-dasharray="{{ p.dash }}" transform="rotate(-90 30 30)" style="stroke-dashoffset:{{ p.off }};transition:stroke-dashoffset 1.2s cubic-bezier(.2,.7,.2,1) {{ p.d }}"></circle></svg><strong style="grid-area:1/1;font-family:'Plus Jakarta Sans',sans-serif;font-size:17px;font-variant-numeric:tabular-nums">{{ p.sc }}</strong></span><span style="display:flex;flex-direction:column;min-width:0"><strong style="font-family:'Plus Jakarta Sans',sans-serif;font-size:24px;font-variant-numeric:tabular-nums;white-space:nowrap">{{ p.ufTxt }} UF</strong><span style="font-size:12px;color:{{ p.cMut }};white-space:nowrap">al mes · {{ p.clpTxt }}</span></span></span>
+        <span style="display:flex;flex-direction:column;gap:6px;font-size:12px"><span style="display:grid;grid-template-columns:82px minmax(0,1fr) 38px;gap:8px;align-items:center"><span style="color:{{ p.cMut }}">Hospitalaria</span><span style="height:6px;border-radius:999px;background:{{ p.trk }};overflow:hidden"><span style="display:block;height:100%;border-radius:999px;background:{{ p.bH }};width:{{ p.hospW }};transition:width .9s cubic-bezier(.2,.7,.2,1) {{ p.d }}"></span></span><strong style="text-align:right">{{ p.hospTxt }}</strong></span><span style="display:grid;grid-template-columns:82px minmax(0,1fr) 38px;gap:8px;align-items:center"><span style="color:{{ p.cMut }}">Ambulatoria</span><span style="height:6px;border-radius:999px;background:{{ p.trk }};overflow:hidden"><span style="display:block;height:100%;border-radius:999px;background:{{ p.bA }};width:{{ p.ambW }};transition:width .9s cubic-bezier(.2,.7,.2,1) {{ p.d }}"></span></span><strong style="text-align:right">{{ p.ambTxt }}</strong></span><span style="color:{{ p.cMut }}">Tope anual <strong style="color:{{ p.cFg }};font-variant-numeric:tabular-nums">{{ p.topeTxt }}</strong></span></span>
+        <span style="display:flex;flex-wrap:wrap;gap:6px;min-height:24px"><sc-for list="{{ p.str }}" as="k" hint-placeholder-count="0"><span style="padding:3px 9px;border-radius:999px;font-size:12px;font-weight:700;background:{{ p.chBg }};color:{{ p.chFg }}">✓ {{ k }}</span></sc-for></span>
+        <button onClick="{{ p.onDet }}" style="align-self:flex-start;height:36px;padding:0 4px;border:0;background:transparent;font-size:13px;font-weight:700;color:{{ p.cSub }};cursor:pointer;transition:transform .2s ease" style-hover="transform:translateX(3px)">Ver detalle →</button>
+      </div></sc-for></div></sc-if>
+      <sc-if value="{{ al.empty }}" hint-placeholder-val="{{ false }}"><div style="background:#FFFFFF;border-radius:24px;box-shadow:0 10px 26px -18px rgba(46,59,56,.3);padding:40px 16px;display:flex;flex-direction:column;align-items:center;gap:10px;text-align:center"><strong style="font-size:16px">Ningún plan cumple estos filtros</strong><button onClick="{{ al.limpiar }}" style="height:42px;padding:0 16px;border:0;border-radius:999px;background:#0F5B57;color:#FFFFFF;font-weight:700;cursor:pointer">Limpiar filtros</button></div></sc-if>
+      <div style="height:150px"></div>
+    </div>
+
+    <sc-if value="{{ al.mapOpen }}" hint-placeholder-val="{{ true }}"><aside style="position:sticky;top:76px;background:#FFFFFF;border-radius:24px;box-shadow:0 10px 26px -18px rgba(46,59,56,.3);padding:16px;display:flex;flex-direction:column;gap:10px;max-height:calc(100vh - 96px);overflow:auto;opacity:{{ al.en.o }};transform:{{ al.en.t }};transition:opacity .6s ease .15s,transform .8s cubic-bezier(.2,.7,.2,1) .15s">
+      <span style="display:flex;align-items:center;gap:8px"><strong style="font-family:'Plus Jakarta Sans',sans-serif;font-size:16px">Mapa de precios</strong><button onClick="{{ al.togMap }}" style="margin-left:auto;height:32px;padding:0 10px;border:0;border-radius:999px;background:#F4E9DB;font-size:12px;font-weight:700;color:#0F5B57;cursor:pointer;white-space:nowrap" style-hover="background:#EADFCF">Ocultar ▸</button></span>
+      <span style="display:flex;flex-wrap:wrap;align-items:center;gap:6px 12px;font-size:12px;color:#46534F"><span style="display:flex;align-items:center;gap:5px"><span style="width:10px;height:10px;border-radius:999px;background:#0F5B57"></span>Puntaje alto</span><span style="display:flex;align-items:center;gap:5px"><span style="width:10px;height:10px;border-radius:999px;background:#7FA98D"></span>Medio</span><span style="display:flex;align-items:center;gap:5px"><span style="width:10px;height:10px;border-radius:999px;background:#E3D7C5"></span>Bajo</span></span>
+      <div style="padding-top:72px">
+        <div style="position:relative;height:{{ al.mp.h }};transition:height .4s cubic-bezier(.2,.7,.2,1)">
+          <span style="position:absolute;top:0;bottom:0;left:{{ al.band.l }};width:{{ al.band.w }};background:#EEF7F1;border-radius:14px;opacity:{{ al.band.o }};transition:left .5s cubic-bezier(.2,.7,.2,1),width .5s cubic-bezier(.2,.7,.2,1),opacity .3s ease"></span>
+          <sc-for list="{{ al.mp.dots }}" as="d" hint-placeholder-count="0"><button aria-label="{{ d.lbl }}" onClick="{{ d.onClick }}" onMouseEnter="{{ d.enter }}" onMouseLeave="{{ d.leave }}" onFocus="{{ d.enter }}" onBlur="{{ d.leave }}" style="position:absolute;padding:0;cursor:pointer;border-radius:999px;left:{{ d.left }};bottom:{{ d.bottom }};width:{{ d.sz }};height:{{ d.sz }};transform:{{ d.sc }};border:2px solid {{ d.bd }};background:{{ d.bg }};box-shadow:{{ d.sh }};opacity:{{ d.op }};z-index:{{ d.z }};transition:transform .45s cubic-bezier(.3,1.5,.5,1) {{ d.d }},bottom .4s cubic-bezier(.2,.7,.2,1),opacity .3s ease,width .2s ease,height .2s ease,box-shadow .2s ease"><span style="position:absolute;left:50%;bottom:calc(100% + 3px);transform:translateX(-50%);padding:1px 6px;border-radius:999px;background:#D9A441;color:#2E3B38;font-size:10px;font-weight:800;white-space:nowrap;pointer-events:none;opacity:{{ d.rkO }};transition:opacity .3s ease">{{ d.rk }}</span></button></sc-for>
+          <sc-if value="{{ al.tip.show }}" hint-placeholder-val="{{ false }}">
+            <span style="position:absolute;z-index:9;left:{{ al.tip.ax }};bottom:{{ al.tip.ab }};width:12px;height:12px;background:#2E3B38;transform:translateX(-50%) rotate(45deg);pointer-events:none;transition:left .3s cubic-bezier(.2,.7,.2,1),bottom .3s cubic-bezier(.2,.7,.2,1)"></span>
+            <div style="position:absolute;z-index:10;left:{{ al.tip.left }};bottom:{{ al.tip.bottom }};transform:translateX(-50%);width:max-content;max-width:256px;background:#2E3B38;color:#FFFFFF;border-radius:14px;padding:8px 12px;display:flex;flex-direction:column;gap:2px;text-align:center;pointer-events:none;box-shadow:0 12px 24px -14px rgba(46,59,56,.7);transition:left .3s cubic-bezier(.2,.7,.2,1),bottom .3s cubic-bezier(.2,.7,.2,1)"><span style="font-size:11px;color:#CFEAD9">{{ al.tip.me }}</span><strong style="font-size:12px;line-height:1.3;text-wrap:balance">{{ al.tip.txt }}</strong></div>
+          </sc-if>
+        </div>
+      </div>
+      <div style="position:relative;height:22px;border-top:1px solid #DCCFBC"><sc-for list="{{ al.mp.ticks }}" as="t" hint-placeholder-count="0"><span style="position:absolute;top:5px;left:{{ t.l }};transform:translateX(-50%);font-size:11px;color:#56625F;white-space:nowrap;font-variant-numeric:tabular-nums">{{ t.t }}</span></sc-for></div>
+      <div style="display:flex;flex-wrap:wrap;gap:6px"><sc-for list="{{ al.ranges }}" as="o" hint-placeholder-count="6"><button onClick="{{ o.onClick }}" aria-pressed="{{ o.on }}" style="height:32px;padding:0 10px;border-radius:999px;font-size:12px;font-weight:600;cursor:pointer;white-space:nowrap;border:1.5px solid {{ o.bd }};background:{{ o.bg }};color:{{ o.fg }};opacity:{{ o.op }};transition:background-color .2s ease,color .2s ease,transform .15s ease" style-active="transform:scale(.96)">{{ o.label }}</button></sc-for></div>
+      <span style="font-size:12px;color:#56625F">Clic en un punto para agregarlo a comparar. Pasa el cursor por una fila para ubicarla.</span>
+    </aside></sc-if>
+    <sc-if value="{{ al.mapClosed }}" hint-placeholder-val="{{ false }}"><button onClick="{{ al.togMap }}" style="position:sticky;top:76px;width:52px;height:120px;border:0;border-radius:18px;background:#FFFFFF;box-shadow:0 10px 26px -18px rgba(46,59,56,.3);cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;font-size:12px;font-weight:700;color:#0F5B57" style-hover="background:#EEF7F1"><span aria-hidden="true" style="font-size:16px">◂</span><span style="writing-mode:vertical-rl;transform:rotate(180deg)">Ver mapa</span></button></sc-if>
+  </div>
+</div></sc-if>
+<sc-if value="{{ isCmp }}" hint-placeholder-val="{{ false }}"><div data-screen-label="04 Comparar">
+        <div style="padding:14px 28px 0;max-width:1200px;margin:0 auto;display:flex;flex-direction:column;gap:18px">
+          <button onClick="{{ cp.back }}" style="align-self:flex-start;height:40px;padding:0 14px 0 10px;border:0;border-radius:999px;background:transparent;color:#0F5B57;font-weight:700;font-size:14px;cursor:pointer;transition:background-color .2s ease,transform .2s ease" style-hover="background:#FFFFFF;transform:translateX(-3px)">‹ Volver a alternativas</button>
+          <div style="display:flex;flex-wrap:wrap;align-items:flex-end;gap:16px;opacity:{{ cp.en.o }};transform:{{ cp.en.t }};transition:opacity .6s ease 0s,transform .8s cubic-bezier(.2,.7,.2,1) 0s">
+            <div style="display:flex;flex-direction:column;gap:6px;margin-right:auto;min-width:0"><span style="font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#8A6417">Comparando {{ cp.n3 }} planes · Tu grupo de {{ cp.nMem }}</span><h2 style="margin:0;font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:clamp(26px,3vw,32px);color:#2E3B38">¿Cuál te conviene más?</h2><span style="font-size:14px;line-height:1.5;color:#46534F">Elige qué te importa y reordenamos los planes según el puntaje Alcavia.</span></div>
+            <div role="radiogroup" aria-label="Prioridad" style="position:relative;display:flex;gap:4px;padding:4px;border-radius:999px;background:#FFFFFF;box-shadow:0 8px 20px -14px rgba(46,59,56,.4);overflow-x:auto;max-width:100%">
+              <span style="position:absolute;top:4px;bottom:4px;width:150px;border-radius:999px;background:#0F5B57;left:{{ cp.seg.l }};transition:left .4s cubic-bezier(.2,.7,.2,1)"></span>
+              <sc-for list="{{ cp.pris }}" as="r" hint-placeholder-count="3"><button role="radio" aria-checked="{{ r.on }}" onClick="{{ r.onClick }}" style="position:relative;z-index:1;flex:none;width:150px;height:42px;border:0;border-radius:999px;background:transparent;font-weight:700;font-size:14px;cursor:pointer;color:{{ r.fg }};transition:color .3s ease">{{ r.label }}</button></sc-for>
+            </div>
+          </div>
+          <div style="display:flex;flex-wrap:wrap;align-items:center;gap:8px 16px;font-size:13px;color:#46534F;opacity:{{ cp.en.o }};transform:{{ cp.en.t }};transition:opacity .6s ease .1s,transform .8s cubic-bezier(.2,.7,.2,1) .1s"><span style="font-weight:700">Cómo pesa cada dato:</span><sc-for list="{{ cp.wchips }}" as="k" hint-placeholder-count="4"><span style="display:flex;align-items:center;gap:6px"><span style="width:12px;height:12px;border-radius:4px;background:{{ k.c }}"></span>{{ k.l }}</span></sc-for></div>
+          <div style="position:relative;background:#FFFFFF;border-radius:24px;padding:18px 16px 18px;box-shadow:0 10px 26px -18px rgba(46,59,56,.3);opacity:{{ cp.en.o }};transform:{{ cp.en.t }};transition:opacity .6s ease .2s,transform .8s cubic-bezier(.2,.7,.2,1) .2s">
+            <div style="position:sticky;top:56px;z-index:5;height:0">
+              <div style="position:absolute;left:-16px;right:-16px;top:0;background:rgba(255,255,255,.97);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid #EADFCF;border-radius:0 0 20px 20px;box-shadow:0 18px 30px -22px rgba(46,59,56,.6);opacity:{{ cp.a2m.o }};transform:{{ cp.a2m.t }};pointer-events:{{ cp.a2m.pe }};transition:opacity .25s ease,transform .35s cubic-bezier(.2,.7,.2,1)">
+                <div style="display:flex;align-items:center;flex-wrap:wrap;gap:8px 14px;padding:10px 16px 8px;border-bottom:1px solid #F0E8DC">
+                  <span style="font-size:12px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:#46534F">Comparando {{ cp.n3 }} planes</span>
+                  <span style="display:flex;align-items:center;gap:10px;margin-left:auto"><span style="font-size:13px;font-weight:600;color:#46534F">¿Qué te importa más?</span>
+                    <span role="radiogroup" aria-label="Prioridad" style="position:relative;display:flex;gap:4px;padding:3px;border-radius:999px;background:#F4E9DB">
+                      <span style="position:absolute;top:3px;bottom:3px;width:116px;border-radius:999px;background:#0F5B57;left:{{ cp.segS.l }};transition:left .4s cubic-bezier(.2,.7,.2,1)"></span>
+                      <sc-for list="{{ cp.pris }}" as="r" hint-placeholder-count="3"><button role="radio" aria-checked="{{ r.on }}" onClick="{{ r.onClick }}" style="position:relative;z-index:1;flex:none;width:116px;height:32px;border:0;border-radius:999px;background:transparent;font-weight:700;font-size:13px;cursor:pointer;color:{{ r.fg }};transition:color .3s ease">{{ r.label }}</button></sc-for>
+                    </span>
+                  </span>
+                </div>
+                <div style="position:relative;height:76px;margin:0 16px">
+                  <span style="position:absolute;left:0;top:0;bottom:0;display:flex;align-items:center;font-size:12px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:#46534F">Plan</span>
+                  <sc-for list="{{ cp.cols2 }}" as="c" hint-placeholder-count="3"><div style="position:absolute;top:0;bottom:0;left:{{ c.left }};width:{{ c.width }};padding:0 12px;display:flex;align-items:center;gap:10px;min-width:0;transition:left .7s cubic-bezier(.2,.7,.2,1)">
+                    <span style="display:inline-flex;align-items:center;justify-content:center;flex:none;min-width:28px;height:28px;padding:0 8px;border-radius:999px;font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:12px;white-space:nowrap;background:{{ c.mBg }};color:{{ c.mFg }};transition:background-color .4s ease">{{ c.pos }}</span>
+                    <span style="display:flex;flex-direction:column;min-width:0;flex:1"><span style="font-size:12px;font-weight:600;color:#0F5B57;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ c.isapre }}</span><button onClick="{{ c.onDet }}" title="Ver detalle de {{ c.nombre }}" style="padding:0;border:0;background:transparent;text-align:left;cursor:pointer;color:inherit;font-weight:700;font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-underline-offset:3px" style-hover="color:#0F5B57;text-decoration:underline">{{ c.nombre }}</button><span style="display:flex;align-items:baseline;gap:8px;font-variant-numeric:tabular-nums"><strong style="font-family:'Plus Jakarta Sans',sans-serif;font-size:16px">{{ c.ufTxt }} UF</strong><span style="font-size:12px;color:#56625F">{{ c.sc }} pts</span></span></span>
+                    <button onClick="{{ c.onRemove }}" aria-label="Quitar plan" style="flex:none;width:28px;height:28px;border:0;border-radius:999px;background:#F4E9DB;cursor:pointer;font-size:11px;opacity:{{ c.rmO }}" style-hover="background:#EADFCF">✕</button>
+                  </div></sc-for>
+                </div>
+              </div>
+            </div>
+            <div style="position:relative;height:{{ cp.a2H }}">
+              <div style="position:absolute;left:0;top:0;width:200px">
+                <div style="height:212px;display:flex;align-items:flex-end;padding:0 0 12px 4px"><span style="font-size:12px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:#46534F">Dato</span></div>
+                <sc-for list="{{ cp.filas2 }}" as="f" hint-placeholder-count="8"><div style="height:58px;display:flex;flex-direction:column;justify-content:center;padding-left:4px;border-top:1px solid #F0E8DC"><span style="font-size:14px;font-weight:600">{{ f.label }}</span><span style="font-size:12px;color:#56625F">{{ f.hint }}</span></div></sc-for>
+              </div>
+              <sc-for list="{{ cp.cols2 }}" as="c" hint-placeholder-count="3"><div style="position:absolute;top:0;bottom:0;left:{{ c.left }};width:{{ c.width }};padding:0 6px;opacity:{{ c.o }};transition:left .7s cubic-bezier(.2,.7,.2,1),opacity .6s ease {{ c.d }}">
+                <div style="height:100%;border-radius:22px;overflow:hidden;border:2px solid {{ c.bd }};background:{{ c.bg }};box-shadow:{{ c.sh }};transform:{{ c.lift }};transition:background-color .4s ease,border-color .4s ease,box-shadow .4s ease,transform .5s cubic-bezier(.2,.7,.2,1)">
+                  <div style="height:210px;padding:14px;display:flex;flex-direction:column;gap:6px">
+                    <span style="display:flex;align-items:center;gap:8px;min-width:0;padding-right:2px"><span style="display:inline-flex;align-items:center;justify-content:center;flex:0 1 auto;min-width:28px;height:28px;padding:0 10px;border-radius:999px;font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;background:{{ c.mBg }};color:{{ c.mFg }};transition:background-color .4s ease">{{ c.posTxt }}</span><span style="width:10px;height:10px;border-radius:3px;flex:none;background:{{ c.color }}"></span><button onClick="{{ c.onRemove }}" aria-label="Quitar plan" style="margin-left:auto;flex:none;width:30px;height:30px;border:0;border-radius:999px;background:#F4E9DB;cursor:pointer;font-size:12px;opacity:{{ c.rmO }};transition:background-color .2s ease,transform .2s ease" style-hover="background:#EADFCF;transform:rotate(90deg)">✕</button></span>
+                    <span style="display:flex;flex-direction:column;min-width:0"><span style="font-size:12px;font-weight:600;color:#0F5B57">{{ c.isapre }}</span><button onClick="{{ c.onDet }}" title="Ver detalle de {{ c.nombre }}" style="padding:0;border:0;background:transparent;text-align:left;cursor:pointer;color:inherit;font-weight:700;font-family:'Plus Jakarta Sans',sans-serif;font-size:15px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;line-height:1.25;overflow-wrap:anywhere;text-underline-offset:3px" style-hover="color:#0F5B57;text-decoration:underline">{{ c.nombre }}</button></span>
+                    <span style="display:flex;align-items:baseline;gap:6px"><strong style="font-family:'Plus Jakarta Sans',sans-serif;font-size:24px;font-variant-numeric:tabular-nums">{{ c.ufTxt }} UF</strong><span style="font-size:12px;color:#56625F">/mes</span></span>
+                    <span style="display:flex;justify-content:space-between;align-items:baseline;margin-top:auto"><span style="font-size:12px;color:#56625F">Puntaje Alcavia</span><strong style="font-family:'Plus Jakarta Sans',sans-serif;font-size:16px;font-variant-numeric:tabular-nums">{{ c.sc }}<span style="font-size:12px;color:#56625F"> / 100</span></strong></span>
+                    <span style="display:flex;height:10px;gap:2px;border-radius:999px;background:#F0E8DC;overflow:hidden"><sc-for list="{{ c.comp }}" as="k" hint-placeholder-count="4"><span title="{{ k.t }}" style="display:block;height:100%;width:{{ k.w }};background:{{ k.color }};transition:width .8s cubic-bezier(.2,.7,.2,1)"></span></sc-for></span>
+                  </div>
+                  <sc-for list="{{ c.cells }}" as="x" hint-placeholder-count="8"><div style="height:58px;display:flex;align-items:center;gap:8px;padding:0 12px;min-width:0;border-top:1px solid {{ c.line }}"><span style="display:inline-flex;align-items:center;gap:6px;padding:4px 8px;margin-left:-4px;border-radius:10px;flex:none;background:{{ x.bg }};transition:background-color .4s ease"><sc-if value="{{ x.best }}" hint-placeholder-val="{{ false }}"><span style="width:18px;height:18px;border-radius:6px;background:#0F5B57;color:#FFFFFF;display:grid;place-items:center;font-size:11px;flex:none">✓</span></sc-if><strong style="font-size:15px;font-variant-numeric:tabular-nums;white-space:nowrap;color:{{ x.fg }}">{{ x.txt }}</strong></span><span style="font-size:12px;color:#56625F;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0">{{ x.sub }}</span></div></sc-for>
+                </div>
+              </div></sc-for>
+            </div>
+          </div>
+          <div style="height:120px"></div>
+        </div>
+</div></sc-if>
+<sc-if value="{{ isDet }}" hint-placeholder-val="{{ false }}"><div data-screen-label="05 Detalle">
+  <div style="position:sticky;top:56px;z-index:5;background:rgba(255,255,255,.9);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-top:1px solid #EADFCF;border-bottom:1px solid #EADFCF">
+    <div style="height:52px;display:flex;align-items:center;gap:12px;padding:0 24px">
+      <button onClick="{{ dt.back }}" style="flex:none;height:36px;padding:0 12px 0 8px;border:0;border-radius:999px;background:transparent;color:#0F5B57;font-weight:700;font-size:13px;cursor:pointer;white-space:nowrap;transition:background-color .2s ease,transform .2s ease" style-hover="background:#EEF7F1;transform:translateX(-2px)">‹ Alternativas</button><span style="flex:none;width:1px;height:24px;background:#EADFCF"></span><nav aria-label="Secciones" style="display:flex;gap:4px;overflow-x:auto;min-width:0;flex:0 1 auto">
+        <sc-for list="{{ dt.steps }}" as="s" hint-placeholder-count="4"><button onClick="{{ s.onClick }}" aria-current="{{ s.cur }}" style="height:36px;padding:0 12px 0 6px;border:0;border-radius:999px;display:flex;align-items:center;gap:8px;font-size:13px;font-weight:600;white-space:nowrap;cursor:pointer;background:{{ s.bg }};color:{{ s.fg }};transition:background-color .3s ease,color .3s ease" style-hover="background:#F6F1E8"><span style="width:24px;height:24px;border-radius:999px;display:grid;place-items:center;font-size:11px;font-weight:700;background:{{ s.nb }};color:{{ s.nf }};transform:{{ s.ns }};transition:background-color .35s ease,color .35s ease,transform .45s cubic-bezier(.3,1.6,.5,1)">{{ s.n }}</span>{{ s.label }}</button></sc-for>
+      </nav>
+      <button onClick="{{ dt.addCmp }}" style="margin-left:auto;height:36px;padding:0 14px;border:0;border-radius:999px;background:{{ dt.cmpBgTop }};color:{{ dt.cmpFg }};font-weight:700;font-size:13px;cursor:pointer;white-space:nowrap;opacity:{{ dt.mini.o }};transform:{{ dt.mini.t }};pointer-events:{{ dt.mini.pe }};transition:opacity .3s ease,transform .4s cubic-bezier(.2,.7,.2,1),background-color .25s ease,color .25s ease" style-hover="filter:brightness(1.05)" style-active="transform:scale(.96)">{{ dt.cmpTxt }}</button>
+    </div>
+    <div aria-label="Resumen del plan" style="position:absolute;left:0;right:0;top:100%;height:{{ dt.sum.h }};overflow:hidden;background:rgba(255,255,255,.95);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid #EADFCF;box-shadow:{{ dt.sum.sh }};transition:height .45s cubic-bezier(.2,.7,.2,1),box-shadow .3s ease">
+      <div style="height:66px;display:flex;align-items:center;padding:0 24px;overflow-x:auto;overflow-y:hidden">
+        <span style="display:flex;flex-direction:column;gap:2px;min-width:0;flex:0 1 auto;overflow:hidden;opacity:{{ dt.sum.g1.o }};transform:{{ dt.sum.g1.t }};max-width:{{ dt.sum.g1.mw }};filter:{{ dt.sw.f }};transition:max-width .5s cubic-bezier(.2,.7,.2,1),opacity .35s ease .1s,transform .45s cubic-bezier(.2,.7,.2,1) .1s,filter .2s ease"><span style="font-size:12px;font-weight:600;color:#0F5B57;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ dt.p.isapre }} · {{ dt.p.modalidad }}</span><span style="display:flex;align-items:baseline;gap:10px;min-width:0"><strong style="font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0">{{ dt.p.nombre }}</strong><strong style="font-family:'Plus Jakarta Sans',sans-serif;font-size:20px;color:#0F5B57;white-space:nowrap;font-variant-numeric:tabular-nums">{{ dt.cntTxt }} UF</strong><span style="font-size:12px;color:#56625F;white-space:nowrap">/mes</span></span></span>
+        <span style="display:flex;align-items:center;flex:none;overflow:hidden;opacity:{{ dt.sum.g2.o }};transform:{{ dt.sum.g2.t }};max-width:{{ dt.sum.g2.mw }};transition:max-width .5s cubic-bezier(.2,.7,.2,1),opacity .35s ease .1s,transform .45s cubic-bezier(.2,.7,.2,1) .1s"><span style="flex:none;width:1px;height:34px;background:#EADFCF;margin:0 20px"></span><span style="display:flex;flex-direction:column;gap:6px"><span style="font-size:11px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:#56625F;white-space:nowrap">Desglose</span><span style="display:flex;width:150px;height:10px;gap:2px"><sc-for list="{{ dt.segs }}" as="g" hint-placeholder-count="4"><span style="display:block;height:100%;border-radius:3px;width:{{ g.w }};background:{{ g.color }};transition:width .8s cubic-bezier(.2,.7,.2,1)"></span></sc-for></span></span></span>
+        <span style="display:flex;align-items:center;flex:none;overflow:hidden;opacity:{{ dt.sum.g3.o }};transform:{{ dt.sum.g3.t }};max-width:{{ dt.sum.g3.mw }};transition:max-width .5s cubic-bezier(.2,.7,.2,1),opacity .35s ease .1s,transform .45s cubic-bezier(.2,.7,.2,1) .1s"><span style="flex:none;width:1px;height:34px;background:#EADFCF;margin:0 20px"></span><span style="display:flex;gap:18px"><sc-for list="{{ dt.sumCov }}" as="c" hint-placeholder-count="3"><span style="display:flex;flex-direction:column;gap:2px"><span style="font-size:11px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:#56625F;white-space:nowrap">{{ c.l }}</span><strong style="font-size:15px;font-variant-numeric:tabular-nums;white-space:nowrap">{{ c.v }}</strong></span></sc-for></span></span>
+        <span style="display:flex;align-items:center;flex:none;overflow:hidden;opacity:{{ dt.sum.g4.o }};transform:{{ dt.sum.g4.t }};max-width:{{ dt.sum.g4.mw }};transition:max-width .5s cubic-bezier(.2,.7,.2,1),opacity .35s ease .1s,transform .45s cubic-bezier(.2,.7,.2,1) .1s"><span style="flex:none;width:1px;height:34px;background:#EADFCF;margin:0 20px"></span><span style="display:flex;flex-direction:column;gap:4px"><span style="font-size:11px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:#56625F;white-space:nowrap">Posición</span><span style="display:flex;align-items:center;gap:10px"><strong style="font-size:15px;white-space:nowrap">{{ dt.rank }} de {{ dt.total }}</strong><span style="position:relative;display:block;width:80px;height:6px;border-radius:999px;background:#E3EFE7"><span style="position:absolute;top:-3px;width:12px;height:12px;margin-left:-6px;border-radius:999px;background:#0F5B57;border:2px solid #FFFFFF;box-shadow:0 0 0 1px #0F5B57;left:{{ dt.posL }};transition:left .6s cubic-bezier(.2,.7,.2,1)"></span></span></span></span></span>
+      </div>
+    </div>
+    <span style="position:absolute;left:0;bottom:-1px;height:3px;border-radius:0 3px 3px 0;background:#D9A441;width:{{ dt.prog }};transition:width .12s linear"></span>
+  </div>
+
+  <div style="padding:56px 40px 0;display:flex;flex-direction:column;gap:72px;max-width:860px;margin:0 auto">
+    <section data-step="0" data-rv="h" style="display:flex;flex-direction:column;gap:20px">
+      <span style="display:flex;gap:8px;flex-wrap:wrap">
+        <span style="padding:5px 12px;border-radius:999px;background:#FFFFFF;font-size:13px;font-weight:700;color:#0F5B57;opacity:{{ dt.rv.h.o }};transform:{{ dt.rv.h.t }};transition:opacity .5s ease 0s,transform .7s cubic-bezier(.2,.7,.2,1) 0s">{{ dt.p.isapre }}</span>
+        <span style="padding:5px 12px;border-radius:999px;background:#FFFFFF;font-size:13px;font-weight:600;color:#46534F;opacity:{{ dt.rv.h.o }};transform:{{ dt.rv.h.t }};transition:opacity .5s ease .06s,transform .7s cubic-bezier(.2,.7,.2,1) .06s">{{ dt.p.codigo }}</span>
+        <span style="padding:5px 12px;border-radius:999px;background:#FFFFFF;font-size:13px;font-weight:600;color:#46534F;opacity:{{ dt.rv.h.o }};transform:{{ dt.rv.h.t }};transition:opacity .5s ease .12s,transform .7s cubic-bezier(.2,.7,.2,1) .12s">{{ dt.p.modalidad }}</span>
+      </span>
+      <h2 style="margin:0;font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:clamp(28px,4vw,42px);line-height:1.2;letter-spacing:-.01em;color:#2E3B38;text-wrap:balance;opacity:{{ dt.rv.h.o }};transform:{{ dt.rv.h.t }};filter:{{ dt.rv.h.f }};transition:opacity .6s ease .15s,transform .8s cubic-bezier(.2,.7,.2,1) .15s,filter .7s ease .15s">Para tu grupo de {{ dt.n }}, <span style="color:#0F5B57;display:inline-block;opacity:{{ dt.sw.o }};filter:{{ dt.sw.f }};transform:{{ dt.sw.t }};transition:opacity .2s ease,filter .2s ease,transform .3s cubic-bezier(.2,.7,.2,1)">{{ dt.p.nombre }}</span> cuesta {{ dt.pricePill }} al mes.</h2>
+      <p style="margin:0;font-size:17px;line-height:1.6;color:#46534F;max-width:620px;text-wrap:pretty;opacity:{{ dt.rv.h.o }};transform:{{ dt.rv.h.t }};transition:opacity .6s ease .3s,transform .8s cubic-bezier(.2,.7,.2,1) .3s">Equivale a {{ dt.p.clpTxt }} con la UF del 11-11-2026. Más abajo ves de dónde sale, qué cubre y cómo se compara con los otros {{ dt.otros }} planes.</p>
+    </section>
+
+    <section data-step="1" data-rv="d" style="display:flex;flex-direction:column;gap:14px;opacity:{{ dt.rv.d.o }};transform:{{ dt.rv.d.t }};filter:{{ dt.rv.d.f }};transition:opacity .6s ease,transform .8s cubic-bezier(.2,.7,.2,1),filter .7s ease">
+      <span style="font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#8A6417">Paso 2 · Desglose</span>
+      <h3 style="margin:0;font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:26px;color:#2E3B38">¿De dónde sale ese precio?</h3>
+      <div style="background:#FFFFFF;border-radius:24px;padding:20px;display:flex;flex-direction:column;gap:14px">
+        <div style="display:flex;height:64px;gap:4px">
+          <sc-for list="{{ dt.segs }}" as="g" hint-placeholder-count="4"><span onMouseEnter="{{ g.enter }}" onMouseLeave="{{ dt.unhov }}" style="display:flex;flex-direction:column;justify-content:center;padding:0 12px;min-width:0;overflow:hidden;border-radius:14px;cursor:default;width:{{ g.w }};background:{{ g.color }};color:{{ g.fg }};opacity:{{ g.op }};transform:{{ g.lift }};box-shadow:{{ g.csh }};transition:width 1s cubic-bezier(.2,.7,.2,1) {{ g.d }},opacity .25s ease,transform .3s cubic-bezier(.3,1.5,.5,1),box-shadow .25s ease"><strong style="font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ g.val }}</strong><span style="font-size:11px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ g.label }}</span></span></sc-for>
+        </div>
+        <div style="display:flex;flex-direction:column">
+          <sc-for list="{{ dt.segs }}" as="g" hint-placeholder-count="4"><div onMouseEnter="{{ g.enter }}" onMouseLeave="{{ dt.unhov }}" style="display:grid;grid-template-columns:12px minmax(0,1fr) auto;gap:12px;align-items:center;padding:10px 12px;border-radius:12px;background:{{ g.rowBg }};opacity:{{ g.co }};transform:{{ g.rt }};transition:background-color .2s ease,opacity .5s ease {{ g.cd }},transform .6s cubic-bezier(.2,.7,.2,1) {{ g.cd }}"><span style="width:12px;height:12px;border-radius:4px;background:{{ g.color }};transform:{{ g.dotS }};transition:transform .3s cubic-bezier(.3,1.6,.5,1)"></span><span style="min-width:0"><strong style="font-size:14px">{{ g.who }}</strong> <span style="font-size:13px;color:#56625F">· {{ g.how }}</span></span><strong style="font-size:14px;font-variant-numeric:tabular-nums;white-space:nowrap">{{ g.val3 }}</strong></div></sc-for>
+          <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;padding:14px 12px 4px;margin-top:6px;border-top:1px dashed #DCCFBC"><strong style="font-size:15px">Total mensual</strong><strong style="font-family:'Plus Jakarta Sans',sans-serif;font-size:22px;color:#0F5B57;font-variant-numeric:tabular-nums">{{ dt.p.ufTxt }} UF</strong></div>
+        </div>
+      </div>
+      <span style="font-size:13px;line-height:1.5;color:#56625F;font-variant-numeric:tabular-nums">{{ dt.p.formula }}</span>
+    </section>
+
+    <section data-step="2" data-rv="v" style="display:flex;flex-direction:column;gap:14px;opacity:{{ dt.rv.v.o }};transform:{{ dt.rv.v.t }};filter:{{ dt.rv.v.f }};transition:opacity .6s ease,transform .8s cubic-bezier(.2,.7,.2,1),filter .7s ease">
+      <span style="font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#8A6417">Paso 3 · Cobertura</span>
+      <h3 style="margin:0;font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:26px;color:#2E3B38">Lo que cubre, frente a la muestra</h3>
+      <div style="background:#FFFFFF;border-radius:24px;padding:22px 24px;display:flex;flex-direction:column;gap:26px">
+        <span style="display:flex;flex-wrap:wrap;gap:8px 18px;font-size:13px;color:#46534F"><span style="display:flex;align-items:center;gap:6px"><span style="width:14px;height:8px;border-radius:999px;background:#0F5B57"></span>Este plan</span><span style="display:flex;align-items:center;gap:6px"><span style="width:14px;height:8px;border-radius:999px;background:#5FA88A"></span>Sobre el promedio</span><span style="display:flex;align-items:center;gap:6px"><span style="width:14px;height:8px;border-radius:999px;background:#EBCB8B"></span>Bajo el promedio</span><span style="display:flex;align-items:center;gap:6px"><span style="width:3px;height:14px;border-radius:2px;background:#2E3B38"></span>Promedio de los {{ dt.total }} planes</span></span>
+        <sc-for list="{{ dt.cov }}" as="t" hint-placeholder-count="3"><div style="display:flex;flex-direction:column;gap:10px;opacity:{{ t.ro }};transform:{{ t.rt }};transition:opacity .5s ease {{ t.d }},transform .7s cubic-bezier(.2,.7,.2,1) {{ t.d }}">
+          <span style="display:flex;justify-content:space-between;align-items:flex-end;gap:12px;flex-wrap:wrap"><span style="display:flex;flex-direction:column;gap:2px;min-width:0"><strong style="font-size:15px">{{ t.label }}</strong><span style="font-size:13px;color:#56625F">{{ t.hint }}</span></span><span style="display:flex;align-items:center;gap:10px"><span style="font-size:12px;font-weight:700;padding:4px 10px;border-radius:999px;white-space:nowrap;background:{{ t.dBg }};color:{{ t.dFg }};opacity:{{ t.ao }};transform:{{ t.bt }};transition:opacity .4s ease {{ t.d2 }},transform .5s cubic-bezier(.3,1.6,.5,1) {{ t.d2 }},background-color .3s ease">{{ t.dTxt }}</span><strong style="font-family:'Plus Jakarta Sans',sans-serif;font-size:22px;font-variant-numeric:tabular-nums;white-space:nowrap;filter:{{ dt.sw.f }};transition:filter .2s ease">{{ t.val }}</strong></span></span>
+          <span style="position:relative;display:block;height:14px;border-radius:999px;background:#F0E8DC">
+            <span style="position:absolute;left:0;top:0;bottom:0;border-radius:999px 0 0 999px;background:#0F5B57;width:{{ t.w }};transition:width 1s cubic-bezier(.2,.7,.2,1) {{ t.d }}"></span>
+            <span style="position:absolute;top:0;bottom:0;left:{{ t.xl }};width:{{ t.xw }};border-radius:0 999px 999px 0;background:{{ t.xc }};transition:left 1s cubic-bezier(.2,.7,.2,1) {{ t.d }},width .7s cubic-bezier(.2,.7,.2,1) {{ t.d2 }},background-color .3s ease"></span>
+            <span style="position:absolute;top:-6px;width:3px;height:26px;margin-left:-1.5px;border-radius:2px;background:#2E3B38;left:{{ t.aw }};opacity:{{ t.ao }};transform:{{ t.ms }};transform-origin:50% 100%;transition:opacity .4s ease {{ t.d2 }},transform .5s cubic-bezier(.3,1.6,.5,1) {{ t.d2 }}"></span>
+          </span>
+          <span style="position:relative;display:block;height:16px"><span style="position:absolute;top:0;left:{{ t.al }};transform:translateX(-50%);font-size:12px;font-weight:600;color:#46534F;white-space:nowrap;opacity:{{ t.ao }};transition:opacity .4s ease {{ t.d2 }}">{{ t.avgTxt }}</span></span>
+        </div></sc-for>
+        <span style="font-size:13px;color:#56625F">Modalidad {{ dt.p.modalidad }} · Inicio de venta {{ dt.p.inicio }} · Sin adecuaciones informadas</span>
+      </div>
+    </section>
+
+    <section data-step="3" data-rv="p" style="display:flex;flex-direction:column;gap:14px;opacity:{{ dt.rv.p.o }};transform:{{ dt.rv.p.t }};filter:{{ dt.rv.p.f }};transition:opacity .6s ease,transform .8s cubic-bezier(.2,.7,.2,1),filter .7s ease">
+      <span style="font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#8A6417">Paso 4 · Posición</span>
+      <h3 style="margin:0;font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:26px;color:#2E3B38">Dónde queda entre los {{ dt.total }} planes</h3>
+      <div style="background:#FFFFFF;border-radius:24px;padding:22px 24px;display:flex;flex-direction:column;gap:6px">
+        <span style="display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 12px"><span style="font-size:15px;color:#46534F">Puesto <strong style="color:#2E3B38">{{ dt.rank }}</strong> de {{ dt.total }}, ordenados de menor a mayor precio</span><span style="margin-left:auto;font-size:13px;color:#56625F">Haz clic en un punto para ver ese plan</span></span>
+        <div style="padding-top:76px">
+          <div style="position:relative;height:{{ dt.plotH }}">
+            <span style="position:absolute;left:0;top:0;bottom:0;width:{{ dt.band }};background:#EEF7F1;border-radius:16px 0 0 16px;transition:width .6s cubic-bezier(.2,.7,.2,1)"></span>
+            <span style="position:absolute;right:0;top:0;bottom:0;left:{{ dt.band }};background:#FBF4E6;border-radius:0 16px 16px 0;transition:left .6s cubic-bezier(.2,.7,.2,1)"></span>
+            <span style="position:absolute;top:0;bottom:0;left:{{ dt.band }};width:0;border-left:2px dashed rgba(15,91,87,.45);transition:left .6s cubic-bezier(.2,.7,.2,1)"></span>
+            <span style="position:absolute;top:10px;left:12px;font-size:12px;font-weight:700;color:#0F5B57;white-space:nowrap">{{ dt.menos }} más baratos</span>
+            <span style="position:absolute;top:10px;right:12px;font-size:12px;font-weight:700;color:#6E5112;white-space:nowrap">{{ dt.masCaros }} más caros</span>
+            {{ dt.pulse }}
+            <sc-for list="{{ dt.dots }}" as="d" hint-placeholder-count="0"><button aria-label="{{ d.lbl }}" onClick="{{ d.onClick }}" onMouseEnter="{{ d.enter }}" onMouseLeave="{{ d.leave }}" onFocus="{{ d.enter }}" onBlur="{{ d.leave }}" style="position:absolute;padding:0;cursor:pointer;border-radius:999px;left:{{ d.left }};bottom:{{ d.bottom }};width:{{ d.sz }};height:{{ d.sz }};transform:{{ d.sc }};border:2px solid {{ d.bd }};background:{{ d.bg }};z-index:{{ d.z }};box-shadow:{{ d.sh }};transition:transform .5s cubic-bezier(.3,1.5,.5,1) {{ d.d }},width .25s cubic-bezier(.3,1.5,.5,1),height .25s cubic-bezier(.3,1.5,.5,1),background-color .25s ease,box-shadow .25s ease,border-color .25s ease"></button></sc-for>
+            <span style="position:absolute;z-index:9;left:{{ dt.tip.ax }};bottom:{{ dt.tip.ab }};width:12px;height:12px;background:#2E3B38;transform:translateX(-50%) rotate(45deg);pointer-events:none;opacity:{{ dt.tip.o }};transition:left .35s cubic-bezier(.2,.7,.2,1),bottom .35s cubic-bezier(.2,.7,.2,1),opacity .3s ease"></span>
+            <div style="position:absolute;z-index:10;left:{{ dt.tip.left }};bottom:{{ dt.tip.bottom }};transform:translateX(-50%);width:max-content;max-width:300px;background:#2E3B38;color:#FFFFFF;border-radius:14px;padding:8px 14px;display:flex;flex-direction:column;gap:2px;text-align:center;pointer-events:none;opacity:{{ dt.tip.o }};box-shadow:0 12px 24px -14px rgba(46,59,56,.7);transition:left .35s cubic-bezier(.2,.7,.2,1),bottom .35s cubic-bezier(.2,.7,.2,1),opacity .3s ease"><span style="font-size:11px;color:#CFEAD9">{{ dt.tip.me }}</span><strong style="font-size:13px;line-height:1.3;text-wrap:balance">{{ dt.tip.isapre }} · {{ dt.tip.nombre }} · {{ dt.tip.uf }}</strong></div>
+          </div>
+        </div>
+        <div style="position:relative;height:24px;border-top:1px solid #DCCFBC"><sc-for list="{{ dt.ticks }}" as="k" hint-placeholder-count="0"><span style="position:absolute;top:6px;left:{{ k.l }};transform:translateX(-50%);font-size:12px;color:#56625F;white-space:nowrap;font-variant-numeric:tabular-nums">{{ k.t }}</span></sc-for></div>
+        <div style="display:flex;gap:8px;justify-content:flex-end;padding-top:6px"><button onClick="{{ dt.goPrev }}" aria-label="Plan más barato" style="height:38px;padding:0 14px;border:1.5px solid #DCCFBC;border-radius:999px;background:#FFFFFF;font-size:13px;font-weight:600;cursor:pointer;opacity:{{ dt.prevOp }};transition:transform .2s ease,background-color .2s ease" style-hover="background:#FBF8F3;transform:translateX(-2px)" style-active="transform:scale(.96)">‹ Más barato</button><button onClick="{{ dt.goNext }}" aria-label="Plan más caro" style="height:38px;padding:0 14px;border:1.5px solid #DCCFBC;border-radius:999px;background:#FFFFFF;font-size:13px;font-weight:600;cursor:pointer;opacity:{{ dt.nextOp }};transition:transform .2s ease,background-color .2s ease" style-hover="background:#FBF8F3;transform:translateX(2px)" style-active="transform:scale(.96)">Más caro ›</button></div>
+      </div>
+    </section>
+
+    <section data-rv="x" style="background:#0F5B57;color:#FFFFFF;border-radius:28px 28px 48px 28px;padding:28px;display:flex;flex-wrap:wrap;align-items:center;gap:14px;opacity:{{ dt.rv.x.o }};transform:{{ dt.rv.x.t2 }};transition:opacity .6s ease,transform .9s cubic-bezier(.2,.7,.2,1)">
+      <span style="display:flex;flex-direction:column;gap:4px;min-width:0;flex:1 1 280px"><strong style="font-family:'Plus Jakarta Sans',sans-serif;font-size:22px">¿Lo comparas con otros?</strong><span style="color:#CFEAD9;font-size:15px">Agrégalo a la comparación o revisa la ficha oficial en {{ dt.p.isapre }}.</span></span>
+      <button onClick="{{ dt.addCmp }}" style="height:46px;padding:0 18px;border:0;border-radius:999px;background:{{ dt.cmpBg }};color:{{ dt.cmpFg }};font-weight:700;font-size:14px;cursor:pointer;white-space:nowrap;transition:transform .2s ease,box-shadow .2s ease,background-color .25s ease,color .25s ease" style-hover="transform:translateY(-2px);box-shadow:0 12px 22px -12px rgba(0,0,0,.5)" style-active="transform:scale(.97)">{{ dt.cmpTxt2 }}</button>
+      <button style="height:46px;padding:0 18px;border:1.5px solid rgba(255,255,255,.5);border-radius:999px;background:transparent;color:#FFFFFF;font-weight:700;font-size:14px;cursor:pointer;white-space:nowrap;transition:background-color .2s ease,transform .2s ease" style-hover="background:rgba(255,255,255,.12);transform:translateY(-2px)" style-active="transform:scale(.97)">Ver en {{ dt.p.isapre }} ↗</button>
+    </section>
+    <div style="height:72px"></div>
+  </div>
+</div></sc-if>
+</main>
+<footer data-screen-label="06 Pie de página" style="background:#FFFFFF;position:relative">
+  <svg viewBox="0 0 1440 40" preserveAspectRatio="none" aria-hidden="true" style="display:block;width:100%;height:28px;background:#F4E9DB">
+    <path d="M0 40 L0 26 C380 0 820 46 1440 14 L1440 40 Z" fill="#CFEAD9"></path>
+    <path d="M0 40 L0 34 C420 14 900 50 1440 28 L1440 40 Z" fill="#FFFFFF"></path>
+  </svg>
+  <div style="max-width:1200px;margin:0 auto;padding:24px clamp(16px,4vw,32px) 40px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:24px 48px;align-items:start">
+    <div style="display:flex;flex-direction:column;gap:14px">
+      <img src="assets/logo/alcavia-logo-horizontal.svg" alt="Alcavia · Tu salud tiene más caminos" style="height:52px;width:auto;align-self:flex-start">
+    </div>
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <p style="margin:0;font-size:15px;line-height:1.6;color:#2E3B38;font-weight:500;text-wrap:pretty">Alcavia no es la Superintendencia de Salud. Precio calculado por Alcavia con datos oficiales; confirma con la Isapre antes de contratar.</p>
+      <p style="margin:0;font-size:13px;line-height:1.6;color:#56625F;text-wrap:pretty">Fuente: Superintendencia de Salud, Archivo Maestro de Planes, septiembre 2026 (1 a 2 meses de desfase). 1.959 planes individuales en venta en la Región Metropolitana. UF del 11-11-2026: $41.309. Tus datos se guardan solo en tu navegador.</p>
+      <a href="https://www.superdesalud.gob.cl/tax-biblioteca-digital/datos-abiertos-de-isapres-6988/" target="_blank" rel="noopener" style="font-size:14px;font-weight:600;min-height:44px;display:inline-flex;align-items:center;gap:6px;align-self:flex-start">Datos abiertos de la Superintendencia
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 3h6v6"></path><path d="M10 14 21 3"></path><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path></svg>
+      </a>
+    </div>
+  </div>
+</footer>
+</div>
+<sc-if value="{{ trOn }}" hint-placeholder-val="{{ false }}">
+<div role="region" aria-label="Planes para comparar" style="position:fixed;left:50%;bottom:20px;z-index:60;max-width:calc(100vw - 32px);transform:{{ tr.cmp.t }};transition:transform .45s cubic-bezier(.2,.7,.2,1)">
+  <div style="display:flex;align-items:center;gap:10px;padding:10px 10px 10px 18px;border-radius:999px;background:#2E3B38;color:#FFFFFF;box-shadow:0 24px 44px -18px rgba(0,0,0,.55);overflow-x:auto">
+    <span style="display:flex;flex-direction:column;flex:none"><strong style="font-size:13px;white-space:nowrap">Para comparar</strong><span style="font-size:12px;color:#C9D3CF;white-space:nowrap">{{ tr.cmp.n }} de 3</span></span>
+    <sc-for list="{{ tr.tray }}" as="t" hint-placeholder-count="3"><sc-if value="{{ t.full }}" hint-placeholder-val="{{ false }}"><span style="display:flex;align-items:center;gap:8px;height:44px;padding:0 6px 0 12px;border-radius:999px;background:rgba(255,255,255,.1);max-width:clamp(110px,16vw,220px);min-width:0;flex:0 1 auto"><span style="width:10px;height:10px;border-radius:3px;flex:none;background:{{ t.color }}"></span><span style="display:flex;flex-direction:column;min-width:0"><strong style="font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ t.nombre }}</strong><span style="font-size:11px;color:#C9D3CF;white-space:nowrap">{{ t.isapre }} · {{ t.ufTxt }} UF</span></span><button onClick="{{ t.rm }}" aria-label="Quitar" style="flex:none;width:30px;height:30px;border:0;border-radius:999px;background:rgba(255,255,255,.12);color:#FFFFFF;cursor:pointer;font-size:11px" style-hover="background:rgba(255,255,255,.24)">✕</button></span></sc-if><sc-if value="{{ t.empty }}" hint-placeholder-val="{{ true }}"><span style="display:flex;align-items:center;height:44px;padding:0 14px;border-radius:999px;border:1.5px dashed rgba(255,255,255,.3);font-size:12px;color:#C9D3CF;white-space:nowrap;flex:none">+ Agrega otro</span></sc-if></sc-for>
+    <button onClick="{{ tr.clear }}" aria-label="Limpiar selección" style="border:0;cursor:pointer;flex:none;height:44px;padding:0 14px;border-radius:999px;background:transparent;color:#C9D3CF;font-weight:700;font-size:13px;text-decoration:underline;text-underline-offset:3px" style-hover="color:#FFFFFF">Limpiar</button>
+    <button onClick="{{ tr.goCmp }}" style="border:0;cursor:pointer;flex:none;height:44px;padding:0 18px;border-radius:999px;background:#D9A441;color:#2E3B38;font-weight:800;font-size:14px;display:flex;align-items:center;white-space:nowrap;text-decoration:none;opacity:{{ tr.cmp.op }};pointer-events:{{ tr.cmp.pe }};transition:opacity .2s ease,transform .2s ease" style-hover="transform:translateY(-1px);color:#2E3B38">{{ tr.cmp.btn }}</button>
+  </div>
+</div>
+
+</sc-if>
+<sc-if value="{{ gr.grpOpen }}" hint-placeholder-val="{{ false }}">
+  <div onClick="{{ gr.closeGrp }}" style="position:fixed;inset:0;z-index:150;background:rgba(46,59,56,.45);display:flex;align-items:flex-start;justify-content:center;padding:72px 20px 20px;overflow:auto">
+    <div role="dialog" aria-modal="true" aria-label="Editar grupo" onClick="{{ gr.stop }}" style="width:100%;max-width:1040px;background:#F4E9DB;border-radius:28px;padding:24px;display:flex;flex-direction:column;gap:16px;box-shadow:0 40px 80px -30px rgba(0,0,0,.6)">
+      <div style="display:flex;align-items:center;gap:12px"><h2 style="margin:0;font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:28px;color:#0F5B57">¿Quiénes van en tu plan?</h2><button onClick="{{ gr.closeGrp }}" aria-label="Cerrar" style="margin-left:auto;width:44px;height:44px;border:0;border-radius:999px;background:#FFFFFF;cursor:pointer;font-size:14px" style-hover="background:#EADFCF">✕</button></div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:12px">
+        <sc-for list="{{ gr.per }}" as="p" hint-placeholder-count="3">
+          <div style="background:#FFFFFF;border-radius:20px;padding:14px;display:flex;flex-direction:column;gap:12px;box-shadow:0 1px 2px rgba(46,59,56,.05),0 10px 26px -16px rgba(46,59,56,.25);border-top:4px solid {{ p.color }}">
+            <div style="display:flex;align-items:flex-start;gap:8px">
+              <span style="display:flex;flex-direction:column;min-width:0;flex:1"><strong style="font-size:15px">{{ p.title }}</strong><span style="font-size:12px;color:#56625F">{{ p.tipoTxt }} · factor <strong style="color:#0F5B57">{{ p.fTxt }}</strong></span></span>
+              <sc-if value="{{ p.removable }}" hint-placeholder-val="{{ false }}"><button onClick="{{ p.onRemove }}" aria-label="Quitar" style="width:36px;height:36px;margin:-6px -6px 0 0;border:0;border-radius:999px;background:transparent;color:#56625F;cursor:pointer" style-hover="background:#F7E4DE">✕</button></sc-if>
+            </div>
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:6px">
+              <button onClick="{{ p.onMinus }}" aria-label="Restar un año" style="width:44px;height:44px;border:1px solid #DCCFBC;border-radius:999px;background:#FFFFFF;cursor:pointer;font-size:18px">−</button>
+              <span style="display:flex;align-items:baseline;gap:4px"><input type="number" value="{{ p.edad }}" onChange="{{ p.onEdad }}" aria-label="Edad" style="width:60px;border:0;text-align:center;font-family:'Plus Jakarta Sans',sans-serif;font-size:32px;font-weight:800;font-variant-numeric:tabular-nums;outline:none;background:transparent"><span style="font-size:13px;color:#56625F">años</span></span>
+              <button onClick="{{ p.onPlus }}" aria-label="Sumar un año" style="width:44px;height:44px;border:1px solid #DCCFBC;border-radius:999px;background:#FFFFFF;cursor:pointer;font-size:18px">+</button>
+            </div>
+            <span style="display:flex;background:#F4E9DB;border-radius:999px;padding:3px;gap:3px">
+              <button onClick="{{ p.onH }}" aria-pressed="{{ p.isH }}" style="flex:1;height:38px;border:0;border-radius:999px;font-size:14px;font-weight:600;cursor:pointer;background:{{ p.hBg }};color:{{ p.hFg }}">Hombre</button>
+              <button onClick="{{ p.onM }}" aria-pressed="{{ p.isM }}" style="flex:1;height:38px;border:0;border-radius:999px;font-size:14px;font-weight:600;cursor:pointer;background:{{ p.mBg }};color:{{ p.mFg }}">Mujer</button>
+            </span>
+            <sc-if value="{{ p.isCony }}" hint-placeholder-val="{{ false }}"><span style="display:flex;background:#F4E9DB;border-radius:999px;padding:3px;gap:3px">
+              <button onClick="{{ p.onCarga }}" aria-pressed="{{ p.isCarga }}" style="flex:1;height:38px;border:0;border-radius:999px;font-size:13px;font-weight:600;cursor:pointer;background:{{ p.cBg }};color:{{ p.cFg }}">Carga</button>
+              <button onClick="{{ p.onCot }}" aria-pressed="{{ p.isCot }}" style="flex:1;height:38px;border:0;border-radius:999px;font-size:13px;font-weight:600;cursor:pointer;background:{{ p.tBg }};color:{{ p.tFg }}">Cotizante</button>
+            </span></sc-if>
+          </div>
+        </sc-for>
+        <div style="border:2px dashed #B9CDBF;border-radius:20px;padding:14px;display:flex;flex-direction:column;gap:8px;justify-content:center;min-height:180px">
+          <span style="font-size:14px;font-weight:600;color:#0F5B57">Agregar</span>
+          <sc-if value="{{ gr.noCony }}" hint-placeholder-val="{{ false }}"><button onClick="{{ gr.addCony }}" style="height:44px;border:0;border-radius:999px;background:#FFFFFF;color:#0F5B57;font-weight:600;cursor:pointer">+ Cónyuge o pareja</button></sc-if>
+          <button onClick="{{ gr.addCarga }}" style="height:44px;border:0;border-radius:999px;background:#FFFFFF;color:#0F5B57;font-weight:600;cursor:pointer">+ Hijo/a u otra carga</button>
+        </div>
+      </div>
+      <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;background:#FFFFFF;border-radius:16px;padding:12px 16px">
+        <span style="font-size:14px;font-weight:600">Atajos</span>
+        <sc-for list="{{ gr.presets }}" as="o" hint-placeholder-count="4"><button onClick="{{ o.onClick }}" aria-pressed="{{ o.pressed }}" style="height:36px;padding:0 12px;border-radius:999px;font-size:13px;font-weight:600;cursor:pointer;border:1.5px solid {{ o.bd }};background:{{ o.bg }};color:{{ o.fg }}">{{ o.label }}</button></sc-for>
+        <label style="margin-left:auto;display:flex;align-items:center;gap:8px;font-size:14px">Hoy pago <span style="display:flex;align-items:center;gap:4px;height:40px;padding:0 10px;border:1.5px solid #DCCFBC;border-radius:12px"><input value="{{ gr.hoy }}" onChange="{{ gr.onHoy }}" placeholder="5,7" inputmode="decimal" style="width:44px;border:0;text-align:right;font-weight:700;outline:none;background:transparent"><span style="color:#56625F">UF</span></span></label>
+      </div>
+      <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap"><span style="font-size:14px;color:#46534F"><strong style="color:#0F5B57">{{ gr.nFilt }} planes</strong> desde {{ gr.desdeF }} UF/mes para {{ gr.nMem }} personas</span><button onClick="{{ gr.closeGrp }}" style="margin-left:auto;height:48px;padding:0 22px;border:0;border-radius:999px;background:#0F5B57;color:#FFFFFF;font-weight:700;font-size:15px;cursor:pointer" style-hover="background:#0B4744">Ver planes →</button></div>
+    </div>
+  </div>
+</sc-if>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;pantallaInicial&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;portada&quot;,&quot;grupo&quot;,&quot;alternativas&quot;,&quot;comparar&quot;,&quot;detalle&quot;],&quot;default&quot;:&quot;portada&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Prototipo&quot;},&quot;vistaAlternativas&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;tabla&quot;,&quot;tarjetas&quot;],&quot;default&quot;:&quot;tabla&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Prototipo&quot;}}">
+class Component extends DCLogic {
+  static PR = [['eq', 'Equilibrado'], ['pre', 'Precio bajo'], ['cob', 'Más cobertura']];
+  static W = { eq: { precio: 20, hosp: 35, amb: 20, tope: 25 }, pre: { precio: 50, hosp: 20, amb: 15, tope: 15 }, cob: { precio: 10, hosp: 40, amb: 25, tope: 25 } };
+  static RG = [[0, 6, 'Hasta 6 UF'], [6, 8, '6 a 8 UF'], [8, 10, '8 a 10 UF'], [10, 12, '10 a 12 UF'], [12, 999, 'Más de 12 UF']];
+  static IDS = ['h', 'd', 'v', 'p', 'x'];
+  static DEFSEL = ['EL1265050', 'CBMR018526', 'SR1268050'];
+  static SCR = { portada: 'portada', grupo: 'grupo', alternativas: 'alt', comparar: 'cmp', detalle: 'det' };
+  state = { scr: 'portada', g: null, pri: 'eq', sort: 'score', view: 'tabla', isa: [], hmin: 0, pres: 0, rng: -1, sel: [], altSc: false, altHov: null, ani: false, pop: '', map: null, cw: 1400, grp: false, hoy: '', cmpSc: false, det: 'CBMR018526', seen: {}, pass: 0, act: 0, prog: 0, dHov: -1, dot: null, cnt: { from: 0, to: 0, t0: 0 }, now: 0, swap: false, py: 0, hdr: false, leave: false };
+  refBox = el => { this.box = el; };
+  componentDidMount() {
+    this._rz = () => this.measure(); window.addEventListener('resize', this._rz); setTimeout(this._rz, 0);
+    this._kd = e => { if (e.key === 'Escape') this.setState({ grp: false, pop: '' }); }; window.addEventListener('keydown', this._kd);
+    this._t = setInterval(() => { if (window.ALC) { clearInterval(this._t); const scr = Component.SCR[this.props.pantallaInicial] || 'portada';
+      this.setState({ g: JSON.parse(JSON.stringify(window.ALC.DEF)), view: this.props.vistaAlternativas === 'tarjetas' ? 'tarjetas' : 'tabla', sel: scr === 'cmp' ? Component.DEFSEL.slice() : [] }, () => this.go(scr)); } }, 30);
+  }
+  componentWillUnmount() { window.removeEventListener('resize', this._rz); window.removeEventListener('keydown', this._kd); clearInterval(this._t); clearTimeout(this._kt); clearTimeout(this._dk); clearTimeout(this._ct); clearTimeout(this._sw); clearTimeout(this._lv); clearTimeout(this._pc); cancelAnimationFrame(this._raf); cancelAnimationFrame(this._pf); }
+  togSel(c) { const s = this.state.sel; if (s.indexOf(c) >= 0) this.setState({ sel: s.filter(x => x !== c) }); else if (s.length < 3) this.setState({ sel: [...s, c] }); }
+  upd(fn) { const g = JSON.parse(JSON.stringify(this.state.g)); fn(g); this.setState({ g }); }
+  kick() { this.setState({ ani: false }); clearTimeout(this._kt); this._kt = setTimeout(() => this.setState({ ani: true }), 80); }
+  measure() { if (this.state.scr === 'portada') this.check(); const w = this.box ? this.box.clientWidth : window.innerWidth; if (Math.abs(w - this.state.cw) > 8) this.setState({ cw: w }); }
+  R() { const g = this.state.g; if (this._rg !== g) { this._rg = g; this._rr = window.ALC.plans(g); } return this._rr; }
+  getR() { return this.R(); }
+  cur() { return this.R().all.find(q => q.codigo === this.state.det); }
+  go(scr, extra) {
+    const sel = (extra && extra.sel) || this.state.sel; if (scr === 'cmp' && sel.length < 2) return;
+    if (this._ready && scr !== this.state.scr) { clearTimeout(this._lv); this.setState({ leave: true }); this._lv = setTimeout(() => this.go2(scr, extra), 190); } else { this._ready = true; this.go2(scr, extra); }
+  }
+  go2(scr, extra) {
+    this.setState({ scr, leave: false, py: 0, pop: '', grp: false, altSc: false, cmpSc: false, seen: {}, pass: 0, act: 0, prog: 0, dot: null, dHov: -1, altHov: null, swap: false, ...(extra || {}) }, () => {
+      if (this.box) this.box.scrollTop = 0; this.kick(); this.measure();
+      if (scr === 'det') { clearTimeout(this._dk); this._dk = setTimeout(() => { this.check(); const x = this.cur(); if (x) this.count(0, x.uf); }, 90); } else if (scr === 'portada') { clearTimeout(this._pc); this._pc = setTimeout(() => this.check(), 140); } });
+  }
+  onScroll = e => { const y = e.currentTarget.scrollTop, s = this.state; if ((y > 4) !== s.hdr) this.setState({ hdr: y > 4 });
+    if (s.scr === 'portada') { if (!this._pf) this._pf = requestAnimationFrame(() => { this._pf = 0; const yy = this.box ? this.box.scrollTop : 0; this.setState({ py: Math.min(yy, 1200) }); this.check(); }); return; }
+    if (s.scr === 'alt') { if (!s.altSc && y > 90) this.setState({ altSc: true, pop: '' }); else if (s.altSc && y < 30) this.setState({ altSc: false }); }
+    else if (s.scr === 'cmp') { const v = y > 330; if (v !== s.cmpSc) this.setState({ cmpSc: v }); }
+    else if (s.scr === 'det') this.check(); };
+  goComo = () => { const el = this.box && this.box.querySelector('#como-funciona'); if (el) this.box.scrollTo({ top: el.offsetTop - 64, behavior: 'smooth' }); };
+  grpVals(A, g, r) {
+    const COL = ['#0F5B57', '#7FA98D', '#A9CDB7', '#5E8F7A', '#3E7F70', '#BFD9C9'], mem = r.mem;
+    const on = a => a ? { bg: '#FFFFFF', fg: '#0F5B57' } : { bg: 'transparent', fg: '#46534F' };
+    const per = mem.map((m, i) => {
+      const ci = i - (g.conyuge ? 2 : 1);
+      const get = gg => m.rol === 'titular' ? gg.titular : m.rol === 'conyuge' ? gg.conyuge : gg.cargas[ci];
+      const lo = m.rol === 'carga' ? 0 : 18, cl = v => Math.max(lo, Math.min(110, v));
+      const h = on(m.sexo === 'H'), mm = on(m.sexo === 'M'), c = on(m.tipo === 'carga'), t = on(m.tipo === 'cotizante');
+      return { title: m.rol === 'titular' ? 'Tú (titular)' : m.rol === 'conyuge' ? 'Cónyuge o pareja' : 'Hijo/a u otra carga', edad: m.edad, color: COL[i % COL.length],
+        tipoTxt: m.rol === 'titular' ? 'Titular · cotizante' : m.rol === 'conyuge' ? (m.tipo === 'carga' ? 'Carga' : 'Cotizante') : 'Carga', fTxt: A.ff(m.f),
+        isH: m.sexo === 'H', isM: m.sexo === 'M', hBg: h.bg, hFg: h.fg, mBg: mm.bg, mFg: mm.fg,
+        isCony: m.rol === 'conyuge', isCarga: m.tipo === 'carga', isCot: m.tipo === 'cotizante', cBg: c.bg, cFg: c.fg, tBg: t.bg, tFg: t.fg, removable: m.rol !== 'titular',
+        onH: () => this.upd(gg => { get(gg).sexo = 'H'; }), onM: () => this.upd(gg => { get(gg).sexo = 'M'; }),
+        onCarga: () => this.upd(gg => { gg.conyuge.cond = 'carga'; }), onCot: () => this.upd(gg => { gg.conyuge.cond = 'cotizante'; }),
+        onMinus: () => this.upd(gg => { const x = get(gg); x.edad = cl(x.edad - 1); }), onPlus: () => this.upd(gg => { const x = get(gg); x.edad = cl(x.edad + 1); }),
+        onEdad: e => { const v = parseInt(e.target.value, 10); this.upd(gg => { const x = get(gg); if (isFinite(v)) x.edad = cl(v); }); },
+        onRemove: () => this.upd(gg => { if (m.rol === 'conyuge') gg.conyuge = null; else gg.cargas.splice(ci, 1); }) };
+    });
+    const cur = !g.conyuge && !g.cargas.length ? 'solo' : g.conyuge && !g.cargas.length ? 'pareja' : g.conyuge && g.cargas.length === 1 ? 'p1' : g.conyuge && g.cargas.length === 2 ? 'p2' : '';
+    const preset = k => this.upd(gg => { const cy = gg.conyuge || { edad: Math.max(18, gg.titular.edad - 1), sexo: gg.titular.sexo === 'H' ? 'M' : 'H', cond: 'carga' };
+      if (k === 'solo') { gg.conyuge = null; gg.cargas = []; } else { gg.conyuge = cy; gg.cargas = k === 'pareja' ? [] : k === 'p1' ? [gg.cargas[0] || { edad: 7, sexo: 'H' }] : [gg.cargas[0] || { edad: 7, sexo: 'H' }, gg.cargas[1] || { edad: 4, sexo: 'M' }]; } });
+    const presets = [['solo', 'Solo yo'], ['pareja', 'Pareja'], ['p1', 'Pareja + 1 hijo/a'], ['p2', 'Pareja + 2 hijos']].map(([k, label]) => ({ label, pressed: cur === k, bg: cur === k ? '#0F5B57' : '#FFFFFF', fg: cur === k ? '#FFFFFF' : '#2E3B38', bd: cur === k ? '#0F5B57' : '#DCCFBC', onClick: () => preset(k) }));
+    return { per, presets, noCony: !g.conyuge,
+      addCony: () => this.upd(gg => { gg.conyuge = { edad: Math.max(18, gg.titular.edad - 1), sexo: gg.titular.sexo === 'H' ? 'M' : 'H', cond: 'carga' }; }),
+      addCarga: () => this.upd(gg => { gg.cargas.push({ edad: 5, sexo: 'H' }); }),
+      hoy: this.state.hoy, onHoy: e => this.setState({ hoy: e.target.value.replace(/[^0-9.,]/g, '') }) };
+  }
+  check() { const el = this.box; if (!el) return; const cr = el.getBoundingClientRect(), s = this.state, seen = { ...s.seen }; let ch = false;
+    el.querySelectorAll('[data-rv]').forEach(n => { const id = n.getAttribute('data-rv'); if (!seen[id] && n.getBoundingClientRect().top < cr.bottom - 60) { seen[id] = 1; ch = true; } });
+    const st = el.querySelectorAll('[data-step]'), max = el.scrollHeight - el.clientHeight; let pass = 0, act = 0;
+    st.forEach((n, i) => { const b = n.getBoundingClientRect(); if (b.bottom < cr.top + cr.height * .45) pass++; if (b.top < cr.top + cr.height * .45) act = i; });
+    if (max > 0 && el.scrollTop / max > .97) { pass = st.length; act = st.length - 1; }
+    const pg = max > 0 ? Math.min(1, el.scrollTop / max) : 0, up = {};
+    if (ch) up.seen = seen; if (s.pass !== pass) up.pass = pass; if (s.act !== act) up.act = act; if (Math.abs(s.prog - pg) > .004) up.prog = pg;
+    if (Object.keys(up).length) this.setState(up); }
+  count(from, to) { cancelAnimationFrame(this._raf); clearTimeout(this._ct); this._ct = setTimeout(() => { cancelAnimationFrame(this._raf); this.setState({ cnt: { from: to, to, t0: 0 } }); }, 1000); const t0 = performance.now(); this.setState({ cnt: { from, to, t0 }, now: t0 }); const step = () => { const now = performance.now(); this.setState({ now }); if (now - t0 < 950) this._raf = requestAnimationFrame(step); }; this._raf = requestAnimationFrame(step); }
+  goStep(i) { const el = this.box; if (!el) return; const n = el.querySelectorAll('[data-step]')[i]; if (n) el.scrollTo({ top: Math.max(0, n.offsetTop - (i > 0 ? 200 : 132)), behavior: 'smooth' }); }
+  setPlan(code) { if (code === this.state.det) return; const a = this.cur(); this.setState({ swap: true }); clearTimeout(this._sw);
+    this._sw = setTimeout(() => { const b = this.getR().all.find(q => q.codigo === code); this.setState({ det: code, dot: null, swap: false }); if (a && b) this.count(a.uf, b.uf); }, 180); }
+  valsAlt() {
+    const A = window.ALC, s = this.state, C = Component;
+    const w = C.W[s.pri], R = A.plans(s.g, w), all = R.all, ani = s.ani;
+    const CC = ['#D9A441', '#0F5B57', '#7FA98D', '#A9CDB7'], CN = ['Precio', 'Hospitalaria', 'Ambulatoria', 'Tope anual'], WK = ['precio', 'hosp', 'amb', 'tope'], COL = ['#0F5B57', '#7FA98D', '#D9A441'];
+    const mm = k => { const v = all.map(q => q[k]); return [Math.min(...v), Math.max(...v)]; };
+    const [a1, b1] = mm('uf'), [a2, b2] = mm('hosp'), [a3, b3] = mm('amb'), [a4, b4] = mm('tope'), tw = w.precio + w.hosp + w.amb + w.tope;
+    const comp = q => [w.precio * (1 - (q.uf - a1) / ((b1 - a1) || 1)), w.hosp * (q.hosp - a2) / ((b2 - a2) || 1), w.amb * (q.amb - a3) / ((b3 - a3) || 1), w.tope * (q.tope - a4) / ((b4 - a4) || 1)].map(v => v / tw * 100);
+    const pct = (k, f) => { const v = all.map(q => q[k]).sort((x, y) => x - y); return v[Math.floor((v.length - 1) * f)]; };
+    const qU = pct('uf', .25), qH = pct('hosp', .75), qA = pct('amb', .75), qT = pct('tope', .75);
+    const strengths = q => [q.uf <= qU && 'Precio bajo', q.hosp >= qH && 'Alta hospitalaria', q.amb >= qA && 'Alta ambulatoria', q.tope >= qT && 'Tope alto'].filter(Boolean);
+    const rg = C.RG[s.rng], fRange = q => !rg || (q.uf >= rg[0] && q.uf < rg[1]);
+    const fl = q => (!s.isa.length || s.isa.indexOf(q.isapre) >= 0) && q.hosp >= s.hmin && (!s.pres || q.uf <= s.pres) && fRange(q);
+    const byPrice = s.sort === 'precio';
+    const ranked = all.filter(fl).sort(byPrice ? (x, y) => x.uf - y.uf : (x, y) => y.score - x.score);
+    const rIdx = {}; ranked.forEach((q, i) => { rIdx[q.codigo] = i; });
+    const full = s.sel.length >= 3, CR = 2 * Math.PI * 26, EN = { o: ani ? 1 : 0, t: ani ? 'none' : 'translateY(18px)' };
+    const item = (q, i) => { const inSel = s.sel.indexOf(q.codigo) >= 0, sc = Math.round(q.score * 100), tp = i === 0, hv = s.altHov === q.codigo;
+      return { code: q.codigo, pos: (i + 1) + '°', isapre: q.isapre, nombre: q.nombre, modalidad: q.modalidad, ufTxt: A.fmt(q.uf), clpTxt: A.clp(q.clp), sc: String(sc), hospTxt: q.hosp + '%', ambTxt: q.amb + '%', topeTxt: A.fmt(q.tope, 0) + ' UF',
+        hospW: ani ? q.hosp + '%' : '0%', ambW: ani ? q.amb + '%' : '0%', comp: comp(q).map((v, j) => ({ w: ani ? v.toFixed(1) + '%' : '0%', c: CC[j] })), mBg: tp ? '#D9A441' : '#F0E8DC',
+        badge: tp && !byPrice, cheap: q.uf === R.min, str: strengths(q).slice(0, 3),
+        inSel, selTxt: inSel ? '✓ Agregado' : '+ Comparar', selIco: inSel ? '✓' : '+', selBg: inSel ? '#0F5B57' : '#FFFFFF', selFg: inSel ? '#FFFFFF' : '#0F5B57', selBd: inSel ? (tp ? '#FFFFFF' : '#0F5B57') : '#DCCFBC', selOp: !inSel && full ? .4 : 1, onSel: () => this.togSel(q.codigo), onDet: () => this.go('det', { det: q.codigo }),
+        o: EN.o, t: EN.t, d: Math.min(i * .05, .6).toFixed(2) + 's', rowBg: hv ? '#FCF6EA' : '#FFFFFF', cOut: hv ? '#D9A441' : 'transparent', enter: () => this.setState({ altHov: q.codigo }), leave: () => this.setState({ altHov: null }),
+        cBg: tp ? '#0F5B57' : '#FFFFFF', cFg: tp ? '#FFFFFF' : '#2E3B38', cSub: tp ? '#CFEAD9' : '#0F5B57', cMut: tp ? '#CFEAD9' : '#56625F', trk: tp ? 'rgba(255,255,255,.18)' : '#F0E8DC', bH: tp ? '#CFEAD9' : '#0F5B57', bA: tp ? '#A9CDB7' : '#7FA98D', rS: tp ? '#D9A441' : '#0F5B57', chBg: tp ? 'rgba(255,255,255,.14)' : '#EEF7F1', chFg: tp ? '#FFFFFF' : '#0F5B57', cSh: tp ? '0 24px 44px -26px rgba(15,91,87,.8)' : '0 10px 26px -18px rgba(46,59,56,.3)',
+        dash: CR.toFixed(1), off: (ani ? CR * (1 - sc / 100) : CR).toFixed(1) }; };
+    const list1 = all.map(q => { const i = rIdx[q.codigo], vis = i != null, it = item(q, vis ? i : 1); return { ...it, top: (vis ? i * 88 : ranked.length * 88) + 'px', o: vis && ani ? 1 : 0, pe: vis ? 'auto' : 'none', d: vis ? Math.min(i * .035, .5).toFixed(2) + 's' : '0s' }; });
+    const span = (b1 - a1) || 1, NB = 16, STEP = 18, SZ = 14, B0 = 12, bw = span / NB, stk = {}, pos = {}; let mxS = 0;
+    const dots = all.slice().sort((x, y) => x.uf - y.uf).map(q => { const bn = Math.min(NB - 1, Math.floor((q.uf - a1) / bw)), k = stk[bn] = (stk[bn] || 0) + 1, inR = fl(q), i = rIdx[q.codigo], hv = s.altHov === q.codigo, inSel = s.sel.indexOf(q.codigo) >= 0, top3 = inR && i != null && i < 3; mxS = Math.max(mxS, k);
+      const lp = (bn + .5) / NB * 100, bp = B0 + (k - 1) * STEP; pos[q.codigo] = { lp, bp, top3 };
+      return { left: lp.toFixed(2) + '%', bottom: bp + 'px', sz: (hv ? SZ + 6 : SZ) + 'px', bg: q.score >= .75 ? '#0F5B57' : q.score >= .55 ? '#7FA98D' : '#E3D7C5', bd: inSel ? '#D9A441' : '#FFFFFF', sh: hv ? '0 0 0 5px rgba(217,164,65,.4)' : inSel ? '0 0 0 2px #D9A441' : '0 2px 5px -2px rgba(46,59,56,.45)', op: inR ? 1 : .2, z: hv ? 4 : top3 ? 2 : 1, sc: ani ? 'translate(-50%,50%) scale(1)' : 'translate(-50%,50%) scale(0)', d: (k * .03 + bn * .012).toFixed(3) + 's', lbl: q.isapre + ' · ' + q.nombre + ' · ' + A.fmt(q.uf) + ' UF', rk: top3 ? (i + 1) + '°' : '', rkO: top3 ? 1 : 0, onClick: () => this.togSel(q.codigo), enter: () => this.setState({ altHov: q.codigo }), leave: () => this.setState({ altHov: null }) }; });
+    const ticks = []; for (let v = Math.ceil(a1 / 2) * 2; v <= b1; v += 2) ticks.push({ l: ((v - a1) / span * 100).toFixed(2) + '%', t: v + ' UF' });
+    const mp = { dots, ticks, h: (B0 + 16 + mxS * STEP) + 'px' };
+    const tq = (s.altHov && all.find(q => q.codigo === s.altHov)) || ranked[0], tp = tq && pos[tq.codigo];
+    const dTop = tp ? tp.bp + (s.altHov ? SZ + 6 : SZ) / 2 + (tp.top3 && !s.altHov ? 18 : 0) : 0;
+    const tip = tq ? { show: true, left: 'clamp(128px, ' + tp.lp.toFixed(2) + '%, calc(100% - 128px))', ax: tp.lp.toFixed(2) + '%', bottom: (dTop + 10) + 'px', ab: (dTop + 4) + 'px',
+      me: s.altHov ? (s.sel.indexOf(tq.codigo) >= 0 ? 'En comparación · clic para quitar' : 'Clic para agregar a comparar') : 'Mejor ' + (byPrice ? 'precio' : 'puntaje') + ' con tus filtros', txt: tq.isapre + ' · ' + tq.nombre + ' · ' + A.fmt(tq.uf) + ' UF · ' + Math.round(tq.score * 100) + '/100' } : { show: false };
+    const band = rg ? { l: ((Math.max(rg[0], a1) - a1) / span * 100).toFixed(1) + '%', w: ((Math.min(rg[1], b1) - Math.max(rg[0], a1)) / span * 100).toFixed(1) + '%', o: 1 } : { l: '0%', w: '100%', o: 0 };
+    const chipO = (on, label, onClick, op2) => ({ label, on, onClick, bg: on ? '#0F5B57' : '#FFFFFF', fg: on ? '#FFFFFF' : '#2E3B38', bd: on ? '#0F5B57' : '#DCCFBC', op: op2 == null ? 1 : op2 });
+    const ranges = [chipO(s.rng < 0, 'Todos', () => this.setState({ rng: -1 }))].concat(C.RG.map((g, i) => { const c = all.filter(q => q.uf >= g[0] && q.uf < g[1]).length; return chipO(s.rng === i, g[2] + ' · ' + c, () => { if (c) this.setState({ rng: s.rng === i ? -1 : i }); }, c ? 1 : .45); }));
+    const pi = Math.max(0, C.PR.findIndex(p => p[0] === s.pri));
+    const pris = C.PR.map(([k, label]) => { const on = s.pri === k; return { label, on, fg: on ? '#FFFFFF' : '#46534F', onClick: () => this.setState({ pri: k }) }; });
+    const ISA = [...new Set(all.map(q => q.isapre))].sort();
+    const isaList = ISA.map(i => { const cnt = all.filter(q => q.isapre === i).length, on = s.isa.indexOf(i) >= 0; return { label: i, count: cnt, on, box: on ? '#0F5B57' : '#FFFFFF', bd: on ? '#0F5B57' : '#B9AD9B', onClick: () => this.setState({ isa: on ? s.isa.filter(x => x !== i) : [...s.isa, i] }) }; });
+    const hminOpts = [0, 70, 90, 100].map(v => chipO(s.hmin === v, v ? v + '% o más' : 'Todas', () => this.setState({ hmin: v })));
+    const presOpts = [0, 6, 8, 10].map(v => chipO(s.pres === v, v ? 'Hasta ' + v + ' UF' : 'Sin límite', () => this.setState({ pres: v })));
+    const orden = [['score', 'Puntaje'], ['precio', 'Menor precio']].map(([k, label]) => { const on = s.sort === k; return { label, on, bg: on ? '#0F5B57' : 'transparent', fg: on ? '#FFFFFF' : '#2E3B38', onClick: () => this.setState({ sort: k }) }; });
+    const views = [['tabla', 'Tabla', 'M2 4h12M2 8h12M2 12h12'], ['tarjetas', 'Tarjetas', 'M2.5 2.5h4v4h-4zM9.5 2.5h4v4h-4zM2.5 9.5h4v4h-4zM9.5 9.5h4v4h-4z']].map(([k, label, ico]) => { const on = s.view === k; return { label, ico, on, bg: on ? '#0F5B57' : 'transparent', fg: on ? '#FFFFFF' : '#2E3B38', onClick: () => { if (!on) { this.setState({ view: k }); this.kick(); } } }; });
+    const nF = (s.isa.length ? 1 : 0) + (s.hmin ? 1 : 0) + (s.pres ? 1 : 0) + (rg ? 1 : 0);
+    const tray = [0, 1, 2].map(i => { const c = s.sel[i], q = c && all.find(z => z.codigo === c); return q ? { full: true, empty: false, nombre: q.nombre, isapre: q.isapre, ufTxt: A.fmt(q.uf), color: COL[i], rm: () => this.togSel(c) } : { full: false, empty: true }; });
+    const ns = s.sel.length, pop = k => () => this.setState({ pop: s.pop === k ? '' : k });
+    const mapOpen = s.map == null ? s.cw >= 1280 : s.map;
+    const leftW = s.cw - 56 - (mapOpen ? 400 : 72), narrow = leftW < 900, tiny = leftW < 700;
+    const gcols = tiny ? '40px minmax(0,1fr) 110px 96px 48px' : narrow ? '40px minmax(0,1fr) 120px 104px 120px' : '44px minmax(0,1fr) 140px 128px 104px 124px';
+    const c = s.altSc, pw = c ? 108 : 140;
+    const k = { pt: c ? '8px' : '14px', pb: c ? '8px' : '10px', gap: c ? '8px' : '10px', p1: c ? '6px 8px 6px 14px' : '12px 12px 12px 16px', ch: c ? '30px' : '34px', pw: pw + 'px', pl: (4 + pi * (pw + 4)) + 'px', ph: c ? '32px' : '38px', wmh: c ? '0px' : '80px', wrap: c ? 'nowrap' : 'wrap', inl: c ? 'none' : 'inline', fullF: c ? 'none' : 'flex', cmpF: c ? 'inline-flex' : 'none', wo: c ? 0 : 1, fh: c ? '36px' : '40px', sh: c ? '30px' : '34px' };
+    if (c) orden[1].label = 'Precio';
+    list1.forEach(p => { p.selBtn = tiny ? p.selIco : p.selTxt; });
+    return { openGrp: () => this.setState({ grp: true, pop: '' }), k, en: EN, chips: R.mem.map(m => m.corto), grupoCorto: R.mem.map(m => m.corto.replace(/^(\S)\S*\s(\d+).*$/, '$1$2')).join(' · '), grupoLargo: R.mem.map(m => m.corto).join(' · '), nMem: String(R.mem.length), nFilt: String(ranked.length), desdeF: ranked.length ? A.fmt(Math.min(...ranked.map(q => q.uf))) : '–', empty: ranked.length === 0,
+      cntO: c ? 1 : 0, stkSh: c ? '0 18px 22px -22px rgba(46,59,56,.7)' : 'none',
+      pris, wchips: CN.map((l, j) => ({ l: l + ' ' + w[WK[j]] + '%', c: CC[j] })),
+      list1, list1H: Math.max(ranked.length, 1) * 88 + 'px', grid: ranked.map(item), orden, views, isTabla: s.view === 'tabla' && ranked.length > 0, isCards: s.view === 'tarjetas',
+      mp, tip, band, ranges, mapOpen, mapClosed: !mapOpen, togMap: () => this.setState({ map: !mapOpen }), gcols, covD: narrow ? 'none' : 'block', covF: narrow ? 'none' : 'flex', gridCols: mapOpen ? 'minmax(0,1fr) 380px' : 'minmax(0,1fr) 52px',
+      isaList, hminOpts, presOpts, nF: String(nF), hasF: nF > 0, limpiar: () => this.setState({ isa: [], hmin: 0, pres: 0, rng: -1 }),
+      popIsa: s.pop === 'isa', popCob: s.pop === 'cob', popPres: s.pop === 'pres', tIsa: pop('isa'), tCob: pop('cob'), tPres: pop('pres'),
+      fIsaTxt: s.isa.length ? 'Isapre · ' + s.isa.length : 'Isapre', fCobTxt: s.hmin ? 'Hosp. ' + s.hmin + '%+' : 'Cobertura', fPresTxt: s.pres ? 'Hasta ' + s.pres + ' UF' : 'Presupuesto',
+      fIsaBg: s.isa.length ? '#0F5B57' : '#FFFFFF', fIsaFg: s.isa.length ? '#FFFFFF' : '#2E3B38', fCobBg: s.hmin ? '#0F5B57' : '#FFFFFF', fCobFg: s.hmin ? '#FFFFFF' : '#2E3B38', fPresBg: s.pres ? '#0F5B57' : '#FFFFFF', fPresFg: s.pres ? '#FFFFFF' : '#2E3B38',
+      tray, cmp: { n: String(ns), t: ns ? 'translate(-50%,0)' : 'translate(-50%,160%)', op: ns >= 2 ? 1 : .55, pe: ns >= 2 ? 'auto' : 'none', btn: ns >= 2 ? 'Comparar ' + ns + ' planes →' : 'Elige al menos 2' } };
+  }
+  valsDet() {
+    const A = window.ALC, s = this.state, C = Component;
+    const hid = { o: 0, t: 'translateY(28px)', t2: 'translateY(40px) scale(.97)', f: 'blur(6px)' };
+    const r = this.getR(), x = this.cur(), n = r.n, exact = x.base * r.sf + x.ges * n, on = id => !!s.seen[id], hv = s.dHov;
+    const rv = {}; C.IDS.forEach(id => { rv[id] = on(id) ? { o: 1, t: 'none', t2: 'none', f: 'none' } : hid; });
+    const p = { ...x, ufTxt: A.fmt(x.uf), clpTxt: A.clp(x.clp), inicio: A.mes(x.inicio),
+      formula: A.fmt(x.base) + ' UF × (' + r.mem.map(m => A.ff(m.f)).join(' + ') + ') + ' + A.fmt(x.ges, 3) + ' × ' + n + ' = ' + A.fmt(x.base * r.sf, 3) + ' + ' + A.fmt(x.ges * n, 3) + ' = ' + A.fmt(x.uf) + ' UF' };
+    const cn = s.cnt, tt = cn.t0 ? Math.min(1, Math.max(0, (s.now - cn.t0) / 900)) : 1, cv = tt >= 1 ? x.uf : cn.from + (cn.to - cn.from) * (1 - Math.pow(1 - tt, 3)), counting = tt < 1 && cn.t0;
+    const cntTxt = A.fmt(cv);
+    const pricePill = React.createElement('span', { style: { display: 'inline-block', borderRadius: 14, padding: '0 12px', color: '#0F5B57', fontVariantNumeric: 'tabular-nums', backgroundColor: '#CFEAD9', backgroundImage: 'linear-gradient(100deg,transparent 30%,rgba(255,255,255,.75) 50%,transparent 70%)', backgroundSize: '60% 100%', backgroundRepeat: 'no-repeat', animation: on('h') ? 'alcShine 1.6s ease .9s 1 both' : 'none', transform: counting ? 'scale(1.04)' : 'scale(1)', transition: 'transform .4s cubic-bezier(.3,1.6,.5,1)' } }, cntTxt + ' UF');
+    const COL = ['#0F5B57', '#7FA98D', '#A9CDB7', '#5E8F7A'], ld = on('d');
+    const sb = r.mem.map((m, i) => ({ label: m.corto, who: m.quien, how: m.rolTxt + ' · factor ' + A.ff(m.f) + ' × ' + A.fmt(x.base) + ' UF', v: x.base * m.f, color: COL[i % 4], fg: i < 2 ? '#FFFFFF' : '#2E3B38' })).concat([{ label: 'GES · ' + n + ' personas', who: 'GES ' + x.isapre, how: A.fmt(x.ges, 3) + ' UF × ' + n + ' personas', v: x.ges * n, color: '#D9A441', fg: '#2E3B38' }]);
+    const segs = sb.map((g, i) => ({ ...g, val: A.fmt(g.v) + ' UF', val3: A.fmt(g.v, 3) + ' UF', w: ld ? (g.v / exact * 100).toFixed(1) + '%' : '0%', d: (i * .12).toFixed(2) + 's', op: hv >= 0 && hv !== i ? .32 : 1, rowBg: hv === i ? '#F9F4EC' : 'transparent', lift: hv === i ? 'translateY(-5px)' : 'none', csh: hv === i ? '0 16px 30px -18px rgba(46,59,56,.6)' : 'none', co: ld ? 1 : 0, rt: ld ? (hv === i ? 'translateX(4px)' : 'none') : 'translateY(16px)', cd: ld && hv < 0 ? (.45 + i * .1).toFixed(2) + 's' : '0s', dotS: hv === i ? 'scale(1.35)' : 'scale(1)', enter: () => this.setState({ dHov: i }) }));
+    const avg = f => r.all.reduce((acc, q) => acc + f(q), 0) / r.all.length, aH = avg(q => q.hosp), aA = avg(q => q.amb), aT = avg(q => q.tope);
+    const dl = (d, u) => Math.abs(d) < .5 ? { txt: 'Igual al promedio', bg: '#F0E8DC', fg: '#46534F' } : { txt: (d > 0 ? '+' : '−') + A.fmt(Math.abs(d), 0) + u + ' vs promedio', bg: d > 0 ? '#EEF7F1' : '#F6E7C8', fg: d > 0 ? '#0F5B57' : '#6E5112' };
+    const lv = on('v'), H = [['Cobertura hospitalaria', 'Del costo de hospitalización'], ['Cobertura ambulatoria', 'Consultas y exámenes'], ['Tope anual', 'Por beneficiario, al año']];
+    const cov = [[x.hosp, aH, ' pts', 100, x.hosp + '%', Math.round(aH) + '%'], [x.amb, aA, ' pts', 100, x.amb + '%', Math.round(aA) + '%'], [x.tope, aT, ' UF', 11000, A.fmt(x.tope, 0) + ' UF', A.fmt(aT, 0) + ' UF']].map(([v, av, u, mx, vt, at], i) => { const d = dl(v - av, u), pv = Math.min(100, v / mx * 100), pa = Math.min(100, av / mx * 100), lo = Math.min(pv, pa);
+      return { label: H[i][0], hint: H[i][1], val: vt, avgTxt: 'Promedio ' + at, dTxt: d.txt, dBg: d.bg, dFg: d.fg, w: lv ? lo.toFixed(1) + '%' : '0%', xl: lv ? lo.toFixed(1) + '%' : '0%', xw: lv ? Math.abs(pv - pa).toFixed(1) + '%' : '0%', xc: pv >= pa ? '#5FA88A' : '#EBCB8B', aw: pa.toFixed(1) + '%', al: Math.min(90, Math.max(10, pa)).toFixed(1) + '%', ao: lv ? 1 : 0, ms: lv ? 'scaleY(1)' : 'scaleY(0)', bt: lv ? 'none' : 'scale(.7)', ro: lv ? 1 : 0, rt: lv ? 'none' : 'translateY(14px)', d: (i * .15).toFixed(2) + 's', d2: (1 + i * .15).toFixed(2) + 's' }; });
+    const sorted = r.all.slice().sort((q1, q2) => q1.uf - q2.uf), idx = sorted.findIndex(q => q.codigo === x.codigo), span = (r.max - r.min) || 1, lp = on('p');
+    const NB = 24, bw = span / NB, stk = {}, pos = {}; let mxS = 0;
+    const binOf = q => Math.min(NB - 1, Math.floor((q.uf - r.min) / bw));
+    const dots = sorted.map((q, i) => { const bn = binOf(q), k = stk[bn] = (stk[bn] || 0) + 1, me = q.codigo === x.codigo, hot = s.dot === q.codigo, L = (bn + .5) / NB * 100, B = 14 + (k - 1) * 18; mxS = Math.max(mxS, k); pos[q.codigo] = { L, B };
+      return { left: L.toFixed(2) + '%', bottom: B + 'px', sz: me ? '20px' : hot ? '18px' : '14px', bg: me ? '#0F5B57' : hot ? '#D9A441' : '#FFFFFF', bd: me ? '#FFFFFF' : hot ? '#D9A441' : '#7FA98D', z: me ? 3 : hot ? 4 : 1, sh: me ? '0 0 0 4px #CFEAD9' : hot ? '0 0 0 5px rgba(217,164,65,.3)' : '0 2px 5px -2px rgba(46,59,56,.45)', sc: lp ? 'translate(-50%,50%) scale(1)' : 'translate(-50%,50%) scale(0)', d: lp ? (i * .025).toFixed(3) + 's' : '0s', lbl: q.isapre + ' · ' + q.nombre + ' · ' + A.fmt(q.uf) + ' UF', onClick: () => this.setPlan(q.codigo), enter: () => this.setState({ dot: q.codigo }), leave: () => this.setState({ dot: null }) }; });
+    const tq = sorted.find(q => q.codigo === (s.dot || x.codigo)) || x, tp = pos[tq.codigo], dTop = tp.B + (tq.codigo === x.codigo ? 10 : 9);
+    const tip = { o: lp ? 1 : 0, left: 'clamp(150px, ' + tp.L.toFixed(2) + '%, calc(100% - 150px))', ax: tp.L.toFixed(2) + '%', bottom: (dTop + 10) + 'px', ab: (dTop + 4) + 'px', isapre: tq.isapre, nombre: tq.nombre, uf: A.fmt(tq.uf) + ' UF', me: tq.codigo === x.codigo ? 'Este plan' : 'Haz clic para ver este plan' };
+    const mp = pos[x.codigo];
+    const pulse = React.createElement('span', { 'aria-hidden': true, style: { position: 'absolute', zIndex: 2, left: mp.L.toFixed(2) + '%', bottom: mp.B + 'px', width: 20, height: 20, borderRadius: 999, border: '2px solid #0F5B57', pointerEvents: 'none', opacity: lp ? 1 : 0, transform: 'translate(-50%,50%)', animation: lp ? 'alcPulse 2s ease-out 1.2s infinite' : 'none', transition: 'left .5s cubic-bezier(.2,.7,.2,1),bottom .5s cubic-bezier(.2,.7,.2,1)' } });
+    const ticks = []; for (let v = Math.ceil(r.min / 2) * 2; v <= r.max; v += 2) ticks.push({ l: ((v - r.min) / span * 100).toFixed(2) + '%', t: v + ' UF' });
+    const STEPS = ['Precio', 'Desglose', 'Cobertura', 'Posición'], a = s.act;
+    const steps = STEPS.map((l, i) => ({ label: l, n: a > i ? '✓' : String(i + 1), cur: a === i ? 'step' : 'false', bg: a === i ? '#EEF7F1' : 'transparent', fg: a === i ? '#0F5B57' : '#56625F', nb: a >= i ? '#0F5B57' : '#F0E8DC', nf: a >= i ? '#FFFFFF' : '#56625F', ns: a === i ? 'scale(1.12)' : 'scale(1)', onClick: () => this.goStep(i) }));
+    const q = s.pass, G = (o, mw) => ({ o: o ? 1 : 0, t: o ? 'none' : 'translateY(10px)', mw: o ? mw : '0px' });
+    const ic = s.sel.indexOf(x.codigo) >= 0, addCmp = () => this.togSel(x.codigo);
+    return { back: () => this.go('alt'), p, n, rv, cntTxt, pricePill, segs, unhov: () => this.setState({ dHov: -1 }), cov, dots, ticks, tip, pulse, steps,
+      sw: s.swap ? { o: .3, f: 'blur(4px)', t: 'translateY(4px)' } : { o: 1, f: 'none', t: 'none' },
+      total: String(sorted.length), otros: String(sorted.length - 1), rank: String(idx + 1), menos: String(idx), masCaros: String(sorted.length - idx - 1),
+      plotH: (44 + mxS * 18) + 'px', band: lp ? mp.L.toFixed(2) + '%' : '0%', posL: ((x.uf - r.min) / span * 100).toFixed(1) + '%',
+      goPrev: () => { if (idx > 0) this.setPlan(sorted[idx - 1].codigo); }, goNext: () => { if (idx < sorted.length - 1) this.setPlan(sorted[idx + 1].codigo); }, prevOp: idx > 0 ? 1 : .4, nextOp: idx < sorted.length - 1 ? 1 : .4,
+      sumCov: [{ l: 'Hospitalaria', v: x.hosp + '%' }, { l: 'Ambulatoria', v: x.amb + '%' }, { l: 'Tope anual', v: A.fmt(x.tope, 0) + ' UF' }],
+      sum: { h: q > 0 ? '66px' : '0px', sh: q > 0 ? '0 16px 28px -22px rgba(46,59,56,.65)' : 'none', g1: G(q >= 1, '420px'), g2: G(q >= 2, '220px'), g3: G(q >= 3, '360px'), g4: G(q >= 4, '260px') },
+      prog: (s.prog * 100).toFixed(1) + '%', mini: { o: q ? 1 : 0, t: q ? 'none' : 'translateY(8px)', pe: q ? 'auto' : 'none' },
+      addCmp, cmpBgTop: ic ? '#CFEAD9' : '#D9A441', cmpBg: ic ? '#FFFFFF' : '#D9A441', cmpFg: ic ? '#0F5B57' : '#2E3B38', cmpTxt: ic ? '✓ En comparación' : '▥ Comparar', cmpTxt2: ic ? '✓ Agregado a comparar' : '▥ Agregar a comparar' };
+  }
+  valsCmp(A) {
+    const s = this.state, C = Component, COL = ['#0F5B57', '#7FA98D', '#D9A441'];
+    const codes = s.sel.length >= 2 ? s.sel : C.DEFSEL, ani = s.ani, EN = { o: ani ? 1 : 0, t: ani ? 'none' : 'translateY(18px)' };
+    const CC = ['#D9A441', '#0F5B57', '#7FA98D', '#A9CDB7'], CN = ['Precio', 'Hospitalaria', 'Ambulatoria', 'Tope anual'], WK = ['precio', 'hosp', 'amb', 'tope'];
+    const bestOf = (vals, dir) => { if (!dir || new Set(vals).size < 2) return vals.map(() => false); const b = dir === 'min' ? Math.min(...vals) : Math.max(...vals); return vals.map(v => v === b); };
+    const w = C.W[s.pri] || C.W.eq, RR = A.plans(s.g, w), mm = k => { const v = RR.all.map(q => q[k]); return [Math.min(...v), Math.max(...v)]; };
+    const [a1, b1] = mm('uf'), [a2, b2] = mm('hosp'), [a3, b3] = mm('amb'), [a4, b4] = mm('tope'), tw = w.precio + w.hosp + w.amb + w.tope;
+    const qs = codes.map(c => RR.all.find(q => q.codigo === c)).filter(Boolean), ord = qs.slice().sort((x, y) => y.score - x.score);
+    const L = qs.map((q, i) => ({ q, i, r: ord.indexOf(q), sc: Math.round(q.score * 100), color: COL[i], comp: [w.precio * (1 - (q.uf - a1) / ((b1 - a1) || 1)), w.hosp * (q.hosp - a2) / ((b2 - a2) || 1), w.amb * (q.amb - a3) / ((b3 - a3) || 1), w.tope * (q.tope - a4) / ((b4 - a4) || 1)].map(v => v / tw * 100) }));
+    const n = L.length, POS = ['1°', '2°', '3°'], canRm = n > 2;
+    const DEFS = [['uf', 'Total para tu grupo', 'min', q => A.fmt(q.uf) + ' UF', q => A.clp(q.clp) + ' al mes'], ['hosp', 'Cobertura hospitalaria', 'max', q => q.hosp + '%', () => ''], ['amb', 'Cobertura ambulatoria', 'max', q => q.amb + '%', () => ''], ['tope', 'Tope anual', 'max', q => A.fmt(q.tope, 0) + ' UF', () => 'por beneficiario'], ['base', 'Precio base', 'min', q => A.fmt(q.base) + ' UF', () => 'antes de factores'], ['ges', 'GES por persona', 'min', q => A.fmt(q.ges, 3) + ' UF', () => ''], ['modalidad', 'Modalidad', null, q => q.modalidad, () => ''], ['inicio', 'Inicio de venta', null, q => A.mes(q.inicio), () => '']];
+    const HINT = { uf: 'menos es mejor', hosp: 'más es mejor', amb: 'más es mejor', tope: 'más es mejor', base: 'menos es mejor', ges: 'menos es mejor', modalidad: '', inicio: '' };
+    const rows = DEFS.map(([k, label, dir, txt, sub]) => { const bs = bestOf(L.map(it => it.q[k]), dir); return { label, hint: HINT[k], cells: L.map((it, ci) => ({ txt: txt(it.q), sub: sub(it.q), best: bs[ci], bg: bs[ci] ? '#CFEAD9' : 'transparent', fg: bs[ci] ? '#0F5B57' : '#2E3B38' })) }; });
+    const cols2 = L.map((it, ci) => { const tp = it.r === 0; return { isapre: it.q.isapre, nombre: it.q.nombre, ufTxt: A.fmt(it.q.uf), color: it.color, pos: POS[it.r], posTxt: tp ? '1° Recomendado' : POS[it.r], sc: String(it.sc), mBg: tp ? '#D9A441' : '#F0E8DC', mFg: '#2E3B38',
+      rmO: canRm ? 1 : .35, onRemove: canRm ? () => this.togSel(it.q.codigo) : null, onDet: () => this.go('det', { det: it.q.codigo }),
+      left: 'calc(200px + (100% - 200px) * ' + it.r + ' / ' + n + ')', width: 'calc((100% - 200px) / ' + n + ')', bg: tp ? '#F3FAF5' : 'transparent', bd: tp ? '#0F5B57' : 'transparent', sh: tp ? '0 22px 40px -26px rgba(15,91,87,.6)' : 'none', lift: tp ? 'translateY(-6px)' : 'none', line: tp ? '#DCEBE1' : '#F0E8DC', o: EN.o, d: (it.i * .1 + .2).toFixed(2) + 's',
+      comp: it.comp.map((v, j) => ({ w: ani ? v.toFixed(1) + '%' : '0%', color: CC[j], t: CN[j] + ': ' + Math.round(v) + ' pts' })), cells: rows.map(rw => rw.cells[ci]) }; });
+    const pi = Math.max(0, C.PR.findIndex(p => p[0] === s.pri)), c = s.cmpSc;
+    return { en: EN, cols2, filas2: rows, a2H: (212 + DEFS.length * 58 + 4) + 'px', n3: String(n), nMem: String(RR.mem.length), back: () => this.go('alt'),
+      pris: C.PR.map(([k, label]) => ({ label, on: s.pri === k, fg: s.pri === k ? '#FFFFFF' : '#46534F', onClick: () => this.setState({ pri: k }) })), seg: { l: (4 + pi * 154) + 'px' }, segS: { l: (3 + pi * 120) + 'px' },
+      wchips: CN.map((l, j) => ({ l: l + ' ' + w[WK[j]] + '%', c: CC[j] })), a2m: { o: c ? 1 : 0, t: c ? 'none' : 'translateY(-10px)', pe: c ? 'auto' : 'none' } };
+  }
+  renderVals() {
+    const A = window.ALC, s = this.state, scr = s.scr, ns = s.sel.length, cu = scr === 'det' ? 1 : ['grupo', 'alt', 'cmp'].indexOf(scr);
+    const steps = [['grupo', 'Tu grupo'], ['alt', 'Alternativas'], ['cmp', 'Comparar']].map(([k, l], i) => { const on = i === cu, done = cu > i;
+      return { label: k === 'cmp' && ns ? l + ' · ' + ns : l, n: done ? '✓' : String(i + 1), cur: on ? 'step' : 'false', bg: on ? '#EEF7F1' : 'transparent', fg: on ? '#0F5B57' : '#46534F', nb: on || done ? '#0F5B57' : '#F0E8DC', nf: on || done ? '#FFFFFF' : '#56625F', op: k === 'cmp' && ns < 2 ? .5 : 1, onClick: () => this.go(k) }; });
+    const v = { refBox: this.refBox, onScroll: this.onScroll, steps, goPortada: () => this.go('portada'), goGrupo: () => this.go('grupo'), goComo: this.goComo, isPortada: scr === 'portada', isGrupo: false, isAlt: false, isCmp: false, isDet: false, trOn: false };
+    const ani0 = s.ani, py = scr === 'portada' ? s.py : 0, rvf = id => s.seen[id] ? { o: 1, t: 'none' } : { o: 0, t: 'translateY(24px)' };
+    Object.assign(v, { hdrSh: s.hdr ? '0 10px 28px -18px rgba(46,59,56,.5)' : 'none', mainO: s.leave ? 0 : 1, mainT: s.leave ? 'translateY(8px)' : 'none',
+      hero: { o: ani0 ? 1 : 0, t: ani0 ? 'none' : 'translateY(16px)', it: ani0 ? 'none' : 'translateY(28px) scale(.97)', sc: ani0 ? 'scale(1)' : 'scale(.86)', ring: ani0 ? 'rotate(0deg)' : 'rotate(-40deg)', ringO: ani0 ? .45 : 0,
+        sunY: (py * .28).toFixed(1) + 'px', famY: (py * .12).toFixed(1) + 'px', mintY: (py * .42).toFixed(1) + 'px' },
+      rvP: { tb: rvf('p-tb'), h: rvf('p-h'), c1: rvf('p-c1'), c2: rvf('p-c2'), c3: rvf('p-c3') } });
+    if (!A || !s.g) return v;
+    const R = this.R(), ani = s.ani, EN = { o: ani ? 1 : 0, t: ani ? 'none' : 'translateY(18px)' };
+    Object.assign(v, { isGrupo: scr === 'grupo', isAlt: scr === 'alt', isCmp: scr === 'cmp', isDet: scr === 'det' });
+    v.gr = { ...this.grpVals(A, s.g, R), en: EN, nMem: String(R.mem.length), desdeF: A.fmt(R.min), nFilt: String(R.all.length), grpOpen: s.grp, closeGrp: () => this.setState({ grp: false }), stop: e => e.stopPropagation(), goAlt: () => this.go('alt') };
+    if (v.isAlt) v.al = this.valsAlt();
+    if (v.isCmp) v.cp = this.valsCmp(A);
+    if (v.isDet) v.dt = this.valsDet();
+    const COL = ['#0F5B57', '#7FA98D', '#D9A441'];
+    v.trOn = (v.isAlt || v.isDet) && ns > 0;
+    v.tr = { goCmp: () => this.go('cmp'), clear: () => this.setState({ sel: [] }), cmp: { n: String(ns), t: v.trOn ? 'translate(-50%,0)' : 'translate(-50%,160%)', op: ns >= 2 ? 1 : .55, pe: ns >= 2 ? 'auto' : 'none', btn: ns >= 2 ? 'Comparar ' + ns + ' planes →' : 'Elige al menos 2' },
+      tray: [0, 1, 2].map(i => { const c = s.sel[i], q = c && R.all.find(z => z.codigo === c); return q ? { full: true, empty: false, nombre: q.nombre, isapre: q.isapre, ufTxt: A.fmt(q.uf), color: COL[i], rm: () => this.togSel(c) } : { full: false, empty: true }; }) };
+    return v;
+  }
+}
+</script>
+</body>
+</html>
